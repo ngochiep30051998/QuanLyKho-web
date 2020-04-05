@@ -1,0 +1,78 @@
+<mat-form-field>
+    <mat-label>Tìm kiếm</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="Ma">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.Ma}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Ten">
+            <th mat-header-cell *matHeaderCellDef> Tên </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.Ten}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="DonGia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá </th>
+            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGia}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="NhomVatTu">
+            <th mat-header-cell *matHeaderCellDef> Nhóm vật tư </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.NhomVatTu}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NhaCungCap">
+            <th mat-header-cell *matHeaderCellDef> Nhà cung cấp </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.NhaCungCap}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DonViTinh">
+            <th mat-header-cell *matHeaderCellDef> Đơn vị tính </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.DonViTinh}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="SoLuong">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.SoLuong}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let element;let row">
+                <mat-icon>delete</mat-icon>
+                <mat-icon (click)="showProductDetail(row)">edit</mat-icon>
+            </td>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20,30,40]" showFirstLastButtons></mat-paginator>
+</div>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

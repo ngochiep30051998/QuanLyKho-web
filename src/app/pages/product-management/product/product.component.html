@@ -1,0 +1,54 @@
+<div class="flex-container">
+    <mat-icon mat-dialog-close>close</mat-icon>
+  </div>
+<h2 mat-dialog-title>Delete all elements?</h2>
+<mat-dialog-content>
+    <form class="formwidth">
+        <table class="fullwidth" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <input matInput placeholder="First Name" id="firstname"  name="firstname">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Last Name" id="lastname"  name="lastname">
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <mat-form-field class="fullwidth">
+                <textarea matInput placeholder="Address" id="address"  name="address"></textarea>
+            </mat-form-field>
+        </p>
+        <table class="fullwidth" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <input matInput placeholder="City" id="city"  name="city">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <input matInput placeholder="State" id="state"  name="state">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <input matInput #postalcode maxlength="5" placeholder="Postal Code" id="postalcode" name="postalcode">
+                        <!-- <md-hint align="end">
+                            {{postalcode.value.length}} / 5
+                        </md-hint> -->
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button >Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button>Delete</button>
+</mat-dialog-actions>

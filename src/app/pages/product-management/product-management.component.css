@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+  }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  /* td {
+    cursor: pointer; 
+  } */
+  mat-icon{
+    padding: 20px;
+    cursor: pointer;
+  }
