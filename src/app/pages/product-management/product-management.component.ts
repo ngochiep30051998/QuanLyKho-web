@@ -3,6 +3,8 @@ import { MatPaginator, MatTableDataSource, MatSort, MatDialog } from '@angular/m
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { ProductComponent } from './product/product.component';
+import { IProduct } from '../../interfaces/products.interface';
+import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 
 @Component({
   selector: 'app-product-management',
@@ -11,10 +13,14 @@ import { ProductComponent } from './product/product.component';
 })
 export class ProductManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'Ma', 'Ten', 'DonGia', 'NhomVatTu', 'NhaCungCap', 'DonViTinh', 'SoLuong', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
-
+  public displayedColumns: string[] = ['select', 'Ma', 'Ten', 'DonGia', 'NhomVatTu', 'NhaCungCap', 'DonViTinh', 'SoLuong', 'action'];
+  public dataSource = new MatTableDataSource<IProduct>(ELEMENT_DATA);
+  public selection = new SelectionModel<IProduct>(true, []);
+  public filterParams = {
+    q: '',
+    NhaCungCap: '',
+    NhomVatTu: ''
+  };
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
@@ -28,16 +34,42 @@ export class ProductManagementComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  showProductDetail(product) {
+  showProductDetail(type: string, product?) {
+    const data = {
+      data: type === 'edit' ? product : {} as IProduct,
+      type
+    };
     this.dialog.open(ProductComponent, {
-      data: product,
+      data: data,
       minWidth: 500,
       minHeight: 200
     });
   }
+  showModalDelete(product) {
+    const data = {
+      data: product,
+      type: ''
+    };
+    this.dialog.open(ModalDeleteComponent, {
+      data: data,
+      minWidth: 200,
+      minHeight: 100
+    });
+  }
   applyFilter(event: Event) {
+    if (this.filterParams.NhomVatTu) {
+      this.dataSource.data = this.dataSource.data.filter(
+        x => x.NhomVatTu === this.filterParams.NhomVatTu
+      );
+    }
+    if (this.filterParams.NhaCungCap) {
+      this.dataSource.data = this.dataSource.data.filter(
+        x => x.NhaCungCap === this.filterParams.NhaCungCap
+      );
+    }
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -54,29 +86,20 @@ export class ProductManagementComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: IProduct): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.Ma + 1}`;
   }
 }
-export interface PeriodicElement {
-  Ma: string;
-  Ten: string;
-  DonGia: number;
-  NhomVatTu: string;
-  NhaCungCap: string;
-  DonViTinh: string;
-  SoLuong: number;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: IProduct[] = [
   { Ma: '1234', Ten: 'Vật tư 1', DonGia: 1000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 1 },
-  { Ma: '1235', Ten: 'Vật tư 1', DonGia: 20000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 2 },
-  { Ma: '1234', Ten: 'Vật tư 1', DonGia: 30000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 3 },
-  { Ma: '1232', Ten: 'Vật tư 1', DonGia: 410000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 4 },
-  { Ma: '123', Ten: 'Vật tư 1', DonGia: 150000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 5 },
+  { Ma: '1235', Ten: 'Vật tư 1', DonGia: 20000000, NhomVatTu: 'L', NhaCungCap: 'I', DonViTinh: 'chiếc', SoLuong: 2 },
+  { Ma: '1234', Ten: 'Vật tư 1', DonGia: 30000000, NhomVatTu: 'O', NhaCungCap: 'K', DonViTinh: 'chiếc', SoLuong: 3 },
+  { Ma: '1232', Ten: 'Vật tư 1', DonGia: 410000000, NhomVatTu: 'HM', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 4 },
+  { Ma: '123', Ten: 'Vật tư 1', DonGia: 150000000, NhomVatTu: 'N', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 5 },
   { Ma: '123', Ten: 'Vật tư 1', DonGia: 106000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 6 },
   { Ma: '123', Ten: 'Vật tư 1', DonGia: 10000000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'cái', SoLuong: 7 },
   { Ma: '123', Ten: 'Vật tư 1', DonGia: 10066700000, NhomVatTu: 'H', NhaCungCap: 'H', DonViTinh: 'chiếc', SoLuong: 8 },

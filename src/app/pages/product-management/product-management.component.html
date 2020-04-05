@@ -1,8 +1,33 @@
-<mat-form-field>
-    <mat-label>Tìm kiếm</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
-</mat-form-field>
-
+<div class="flex-container">
+    <div class="filter">
+        <mat-form-field>
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+        </mat-form-field>
+    </div>
+    <div class="condition">
+        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="'auto'">
+            <mat-select placeholder="Nhóm vật tư" [(ngModel)]="filterParams.NhomVatTu">
+                <mat-option >Nhóm vật tư</mat-option>
+                <mat-option value="H">H</mat-option>
+                <mat-option value="L">L</mat-option>
+                <mat-option value="O">O</mat-option>
+                <mat-option value="HM">HM</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="'auto'">
+            <mat-select placeholder="Nhà cung cấp" [(ngModel)]="filterParams.NhaCungCap">
+                <mat-option >Nhà cung cấp</mat-option>
+                <mat-option value="H">H</mat-option>
+                <mat-option value="I">I</mat-option>
+                <mat-option value="K">K</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="action">
+        <button mat-raised-button color="primary" (click)="showProductDetail('create')">Thêm</button>
+    </div>
+</div>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Checkbox Column -->
@@ -60,8 +85,8 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
             <td mat-cell *matCellDef="let element;let row">
-                <mat-icon>delete</mat-icon>
-                <mat-icon (click)="showProductDetail(row)">edit</mat-icon>
+                <mat-icon (click)="showModalDelete(row)">delete</mat-icon>
+                <mat-icon (click)="showProductDetail('edit',row)">edit</mat-icon>
             </td>
 
         </ng-container>

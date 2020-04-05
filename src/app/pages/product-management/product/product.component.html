@@ -1,54 +1,56 @@
 <div class="flex-container">
     <mat-icon mat-dialog-close>close</mat-icon>
-  </div>
-<h2 mat-dialog-title>Delete all elements?</h2>
+</div>
+<h2 mat-dialog-title>Vật liệu</h2>
 <mat-dialog-content>
-    <form class="formwidth">
-        <table class="fullwidth" cellspacing="0">
-            <tr>
-                <td>
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="First Name" id="firstname"  name="firstname">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Last Name" id="lastname"  name="lastname">
-                    </mat-form-field>
-                </td>
-            </tr>
-        </table>
-        <p>
-            <mat-form-field class="fullwidth">
-                <textarea matInput placeholder="Address" id="address"  name="address"></textarea>
+    <form class="form-container" [formGroup]="productForm">
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Mã vật liệu" formControlName="Ma">
             </mat-form-field>
-        </p>
-        <table class="fullwidth" cellspacing="0">
-            <tr>
-                <td>
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="City" id="city"  name="city">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="State" id="state"  name="state">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field class="fullwidth">
-                        <input matInput #postalcode maxlength="5" placeholder="Postal Code" id="postalcode" name="postalcode">
-                        <!-- <md-hint align="end">
-                            {{postalcode.value.length}} / 5
-                        </md-hint> -->
-                    </mat-form-field>
-                </td>
-            </tr>
-        </table>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Tên vật liệu" formControlName="Ten">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <mat-select placeholder="Nhóm vật tư" formControlName="NhomVatTu">
+                    <mat-option value="H">H</mat-option>
+                    <mat-option value="L">L</mat-option>
+                    <mat-option value="O">O</mat-option>
+                    <mat-option value="HM">HM</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <mat-select placeholder="Nhà cung cấp" formControlName="NhaCungCap">
+                    <mat-option value="H">H</mat-option>
+                    <mat-option value="I">I</mat-option>
+                    <mat-option value="K">K</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Đơn giá" formControlName="DonGia">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Số lượng" formControlName="SoLuong">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Đơn vị tính" formControlName="DonViTinh">
+            </mat-form-field>
+        </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button >Cancel</button>
-    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button>Delete</button>
-</mat-dialog-actions>
+<div class="flex-container">
+    <button mat-raised-button color="primary">Thêm</button>
+    <button mat-raised-button color="warn">Huỷ</button>
+</div>

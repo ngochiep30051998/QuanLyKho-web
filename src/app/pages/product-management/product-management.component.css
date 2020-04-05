@@ -11,3 +11,26 @@ table {
     padding: 20px;
     cursor: pointer;
   }
+
+  .flex-container{
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .flex-container .filter{
+    width: 30%;
+  }
+  .flex-container .condition{
+    width: 60%;
+  }
+  .flex-container .condition mat-form-field {
+    width: 45%;
+    padding-left: 1em;
+  }
+  .flex-container .action{
+    width: 10%;
+  }
+  .flex-container .action button{
+    margin-top: 10px;
+    float: right;
+  }
