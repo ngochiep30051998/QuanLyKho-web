@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProductComponent } from '../product/product.component';
+import { ProviderComponent } from '../provider/provider.component';
 import { IDiglogData } from '../../../interfaces/products.interface';
 
 @Component({
@@ -10,11 +10,12 @@ import { IDiglogData } from '../../../interfaces/products.interface';
 })
 export class ModalDeleteComponent implements OnInit {
 
+
   constructor(
-    public dialogRef: MatDialogRef<ProductComponent>,
+    public dialogRef: MatDialogRef<ProviderComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: IDiglogData,
   ) {
-    console.log(dialogData)
+    console.log(dialogData);
    }
 
   ngOnInit() {

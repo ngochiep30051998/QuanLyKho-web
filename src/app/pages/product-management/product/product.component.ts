@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { IProduct, IDiglogProduct } from '../../../interfaces/products.interface';
+import { IProduct, IDiglogData } from '../../../interfaces/products.interface';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +12,7 @@ export class ProductComponent implements OnInit {
   public productForm: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<ProductComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: IDiglogProduct,
+    @Inject(MAT_DIALOG_DATA) public dialogData: IDiglogData,
     public fb: FormBuilder,
   ) {
     console.log(this.dialogData);

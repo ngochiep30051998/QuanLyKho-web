@@ -5,16 +5,19 @@
 <mat-dialog-content>
     <form class="form-container" [formGroup]="productForm">
         <div class="mff-2">
+        <label>Mã vật liệu: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Mã vật liệu" formControlName="Ma">
             </mat-form-field>
         </div>
         <div class="mff-2">
+        <label>Tên vật liệu: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Tên vật liệu" formControlName="Ten">
             </mat-form-field>
         </div>
         <div class="mff-2">
+             <label>Nhóm vật tư: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <mat-select placeholder="Nhóm vật tư" formControlName="NhomVatTu">
                     <mat-option value="H">H</mat-option>
@@ -25,6 +28,7 @@
             </mat-form-field>
         </div>
         <div class="mff-2">
+            <label>Nhà cung cấp: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <mat-select placeholder="Nhà cung cấp" formControlName="NhaCungCap">
                     <mat-option value="H">H</mat-option>
@@ -34,16 +38,19 @@
             </mat-form-field>
         </div>
         <div class="mff-2">
+            <label>Đơn giá: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Đơn giá" formControlName="DonGia">
             </mat-form-field>
         </div>
         <div class="mff-2">
+            <label>Số lượng: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Số lượng" formControlName="SoLuong">
             </mat-form-field>
         </div>
         <div class="mff-2">
+            <label>Đơn vị tính: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Đơn vị tính" formControlName="DonViTinh">
             </mat-form-field>

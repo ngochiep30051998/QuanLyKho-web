@@ -1,0 +1,53 @@
+<div class="flex-container">
+    <mat-icon mat-dialog-close>close</mat-icon>
+</div>
+<h2 mat-dialog-title>Nhà cung cấp</h2>
+<mat-dialog-content>
+    <form class="form-container" [formGroup]="providerForm">
+        <div class="mff-2">
+            <label>Mã nhà cung cấp: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Mã nhà cung cấp" formControlName="Ma">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Tên nhà cung cấp: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Tên nhà cung cấp" formControlName="Ten">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Địa chỉ: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Địa chỉ" formControlName="DiaChi">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Số điện thoại: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Số điện thoại" formControlName="SDT">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Email: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Email" formControlName="Email">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Người đại diện: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Người đại diện:" formControlName="NguoiDaiDien">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<div class="flex-container">
+    <button mat-raised-button color="primary">Thêm</button>
+    <button mat-raised-button color="warn">Huỷ</button>
+</div>

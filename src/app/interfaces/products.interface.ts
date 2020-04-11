@@ -6,9 +6,19 @@ export interface IProduct {
     NhaCungCap: string;
     DonViTinh: string;
     SoLuong: number;
+    CreatedAt?: Date;
+    UpdatedAt?: Date;
 }
 
-export interface IDiglogProduct {
+export interface IDiglogData {
     type: string;
-    data: IProduct;
+    data: any;
+}
+
+export interface IGroupProduct {
+    Id: number;
+    Ma: String;
+    Ten: String;
+    CreatedAt?: string;
+    UpdatedAt?: string;
 }

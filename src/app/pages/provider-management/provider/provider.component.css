@@ -1,0 +1,10 @@
+.flex-container {
+    display: flex;
+    justify-content: flex-end;
+    /* background-color: DodgerBlue; */
+  }
+
+  mat-icon{
+      cursor: pointer;
+  }
+

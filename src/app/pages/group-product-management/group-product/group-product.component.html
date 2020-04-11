@@ -1,0 +1,25 @@
+<div class="flex-container">
+    <mat-icon mat-dialog-close>close</mat-icon>
+</div>
+<h2 mat-dialog-title>Nhóm vật liệu</h2>
+<mat-dialog-content>
+    <form class="form-container" [formGroup]="groupProductForm">
+        <div class="mff-2">
+            <label>Mã nhóm: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Mã nhóm" formControlName="Ma">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Tên nhóm: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Tên nhóm" formControlName="Ten">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<div class="flex-container">
+    <button mat-raised-button color="primary">Thêm</button>
+    <button mat-raised-button color="warn">Huỷ</button>
+</div>
