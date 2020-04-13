@@ -64,6 +64,6 @@ export class AccountComponent implements OnInit {
         return this.roles[i].Id;
       }
     }).filter(x => x);
-    console.log(this.accountForm.value)
+    console.log(this.accountForm.value);
   }
 }

@@ -1,0 +1,75 @@
+<div class="flex-container">
+    <mat-icon mat-dialog-close>close</mat-icon>
+</div>
+<h2 mat-dialog-title>Nhân viên</h2>
+<mat-dialog-content>
+    <form class="form-container" [formGroup]="staffForm">
+        <div class="mff-2">
+            <label>Mã nhân viên: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Mã nhân viên" formControlName="Ma">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Tên nhân viên: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Tên nhân viên" formControlName="Ten">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Giới tính: </label>
+            <mat-radio-group formControlName="GioiTinh">
+                <mat-radio-button value="true" [checked]="dialogData?.data?.GioiTinh">Nam</mat-radio-button>
+                <mat-radio-button value="false" [checked]="!dialogData?.data?.GioiTinh">Nữ</mat-radio-button>
+              </mat-radio-group>
+        </div>
+        <div class="mff-2">
+            <label>Ngày sinh: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput [matDatepicker]="picker" formControlName="NgaySinh">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Địa chỉ: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Địa chỉ" formControlName="DiaChi">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Chứng minh (căn cước) nhân dân: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="3123123" formControlName="CMND">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Email: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Email@gmail.com" formControlName="Email">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Số điện thoại: </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="0123123213" formControlName="SDT">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Ngày vào làm: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput [matDatepicker]="NgayVaoLam" formControlName="NgayVaoLam">
+                <mat-datepicker-toggle matSuffix [for]="NgayVaoLam"></mat-datepicker-toggle>
+                <mat-datepicker #NgayVaoLam></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<div class="flex-container">
+    <button mat-raised-button color="primary">Thêm</button>
+    <button mat-raised-button color="warn">Huỷ</button>
+</div>
