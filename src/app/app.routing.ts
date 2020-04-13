@@ -22,7 +22,8 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'quan-ly-nhom-vat-tu',
-        loadChildren: () => import('./pages/group-product-management/group-product-management.module').then(m => m.GroupProductManagementModule)
+        loadChildren: () =>
+        import('./pages/group-product-management/group-product-management.module').then(m => m.GroupProductManagementModule)
       },
       {
         path: 'quan-ly-vat-tu',
@@ -39,7 +40,7 @@ export const AppRoutes: Routes = [
     ]
   },
   {
-    path:'dang-nhap',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) 
+    path: 'dang-nhap',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   }
 ];

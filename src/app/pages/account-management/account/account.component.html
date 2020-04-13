@@ -1,0 +1,33 @@
+<div class="flex-container">
+    <mat-icon mat-dialog-close>close</mat-icon>
+</div>
+<h2 mat-dialog-title>Nhóm vật liệu</h2>
+<mat-dialog-content>
+    <form class="form-container" [formGroup]="accountForm">
+        <div class="mff-2">
+            <label>Mã nhóm: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput placeholder="Tài khoản" formControlName="Username">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
+            <label>Mật khẩu </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput type="password" placeholder="Mật khẩu" formControlName="Password">
+            </mat-form-field>
+        </div>
+        <div class="mff-1">
+            <label>Quyền: </label>
+            <label
+            formArrayName="IdRole" class="role"
+            *ngFor="let role of accountForm?.get('IdRole')['controls']; let i = index">
+                <input type="checkbox" [formControlName]="i"> {{roles[i]?.Name}}
+            </label>
+        </div>
+    </form>
+</mat-dialog-content>
+<div class="flex-container">
+    <button mat-raised-button color="primary" (click)="create()">Thêm</button>
+    <button mat-raised-button color="warn">Huỷ</button>
+</div>

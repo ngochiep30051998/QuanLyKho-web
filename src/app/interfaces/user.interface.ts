@@ -1,10 +1,12 @@
+
 export interface IUser {
     Id: number;
     Username: string;
-    CreatedAt: Date;
-    UpdatedAt: Date;
-    IdRole: IRole[];
+    CreatedAt: string;
+    UpdatedAt: string;
+    IdRole: number[];
 }
+
 
 export interface IRole {
     Id: number;
