@@ -7,6 +7,7 @@ import { ModalDeleteStaffComponent } from './modal-delete-staff/modal-delete-sta
 import { DemoMaterialModule } from '../../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ComponentsModule } from '../../components/components.module';
 
 
 
@@ -18,6 +19,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
     DemoMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    ComponentsModule,
     RouterModule.forChild([{ path: '', component: StaffManagementComponent }])
   ],
   providers: [
