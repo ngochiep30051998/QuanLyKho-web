@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/catch';
 import { AuthService } from '../services/auth/auth.service';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/throw';
 @Injectable()
 export class CommonHttpInterceptor implements HttpInterceptor {
 
@@ -15,7 +16,6 @@ export class CommonHttpInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const accessToken = localStorage.getItem('accessToken');
-        console.log(accessToken);
         if (accessToken) {
             request = request.clone({
                 setHeaders: {
@@ -23,6 +23,8 @@ export class CommonHttpInterceptor implements HttpInterceptor {
                 },
                 withCredentials: true,
             });
+        } else {
+            return next.handle(request);
         }
         return next.handle(request).catch((err: any) => {
             if (err.status === 401) {
