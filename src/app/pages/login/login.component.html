@@ -19,7 +19,10 @@
     Mật khẩu là bắt buộc
   </p>
   <p class="button">
-    <button type="submit" (click) ="login()"  mat-raised-button color="primary">Đăng nhập</button>
+    <button type="submit" (click) ="login()" [disabled]='loading' mat-raised-button color="primary">
+      <app-loading-inside-btn *ngIf="loading"></app-loading-inside-btn>
+          {{loading?'':'Đăng nhập'}}
+      </button>
   </p>
 </form>
 </mat-card-content>

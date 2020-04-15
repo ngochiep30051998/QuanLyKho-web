@@ -8,7 +8,11 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
   private api = environment.api;
   constructor(
-    private httpClient: HttpClient
+    public httpClient: HttpClient
   ) { }
 
+  getAllStaff() {
+    const url = `${this.api}employee/list-all-employee`;
+    return this.httpClient.get(url);
+  }
 }

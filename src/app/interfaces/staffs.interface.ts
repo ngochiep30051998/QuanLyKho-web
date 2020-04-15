@@ -13,3 +13,19 @@ export interface IStaff {
     UpdatedAt?: string;
     UserId?: number;
 }
+
+export interface IEmployee {
+    UserId: number;
+    Username: string;
+    NhanVienId: number;
+    MaNhanVien: string;
+    TenNhanVien: string;
+    GioiTinh: boolean;
+    NgaySinh: string;
+    DiaChi: string;
+    SDT: string;
+    CMND: string;
+    Email: string;
+    NgayVaoLam: string;
+    RoleName: string;
+}

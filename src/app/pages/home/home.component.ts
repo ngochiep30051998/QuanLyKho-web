@@ -3,6 +3,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
+import { ApiService } from '../../services/api/api.service';
 declare var require: any;
 
 
@@ -66,7 +67,16 @@ export class HomeComponent implements OnInit {
       donutWidth: 20
     }
   };
-  constructor() { }
+  constructor(
+    public api: ApiService
+  ) {
+
+    this.api.getAllStaff().subscribe(res => {
+      console.log(res)
+    }, err => {
+      console.log(err);
+    })
+  }
 
   ngOnInit() {
   }

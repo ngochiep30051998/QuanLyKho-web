@@ -14,8 +14,8 @@ import { isEmpty } from 'lodash';
 })
 export class AccountManagementComponent implements OnInit {
   public displayedColumns: string[] = ['Id', 'Username', 'IdRole', 'CreatedAt', 'UpdatedAt', 'action'];
-  public dataSource = new MatTableDataSource<IUser>(ELEMENT_DATA);
-  public selection = new SelectionModel<IUser>(true, []);
+  public dataSource = new MatTableDataSource<any>();
+  public selection = new SelectionModel<any>(true, []);
   public roles = ROLES;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -59,7 +59,7 @@ export class AccountManagementComponent implements OnInit {
     return !isEmpty(role) ? role.Name : '';
   }
 }
-const ELEMENT_DATA: IUser[] = [
+const ELEMENT_DATA = [
   { Id: 1, Username: 'ngochiep1', IdRole: [1, 2, 3], CreatedAt: '30/05/2020', UpdatedAt: '30/05/2020' },
   { Id: 2, Username: 'ngochiep2', IdRole: [2], CreatedAt: '30/05/2020', UpdatedAt: '30/05/2020' },
   { Id: 3, Username: 'ngochiep3', IdRole: [3], CreatedAt: '30/05/2020', UpdatedAt: '30/05/2020' },
