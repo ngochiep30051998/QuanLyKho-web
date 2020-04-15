@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
 import { DemoMaterialModule } from '../../demo-material-module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,6 +12,7 @@ import { DemoMaterialModule } from '../../demo-material-module';
   imports: [
     CommonModule,
     DemoMaterialModule,
+    ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: LoginComponent }])
   ]
 })

@@ -23,7 +23,8 @@
             "styles": [
               "node_modules/chartist/dist/chartist.css",
               "src/styles.css",
-              "src/assets/styles/style.scss"
+              "src/assets/styles/style.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -76,7 +77,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/styles/style.scss"
+              "src/assets/styles/style.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "assets": [
               "src/assets",

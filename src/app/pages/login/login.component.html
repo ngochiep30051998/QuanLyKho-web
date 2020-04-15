@@ -1,22 +1,25 @@
 <mat-card>
     <mat-card-title>Đăng nhập</mat-card-title>
 <mat-card-content>
-<form >
+<form [formGroup]="loginForm">
   <p>
     <mat-form-field>
-      <input type="text" matInput placeholder="Tài khoản" formControlName="username">
+      <input type="text" formControlName="username" matInput placeholder="Tài khoản" formControlName="username">
     </mat-form-field>
+  </p>
+  <p class="error-text" *ngIf="!loginForm.controls.username.valid && loginForm.controls.username.touched">
+    Tài khoản là bắt buộc
   </p>
   <p>
     <mat-form-field>
-      <input type="password" matInput placeholder="mật khẩu" formControlName="password">
+      <input type="password" formControlName="password" matInput placeholder="mật khẩu" formControlName="password">
     </mat-form-field>
   </p>
-  <!-- <p *ngIf="error" class="loginError">
-    {{ errorMessage }}
-  </p> -->
+  <p class="error-text" *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.valid">
+    Mật khẩu là bắt buộc
+  </p>
   <p class="button">
-    <button type="submit"  mat-raised-button color="primary">Đăng nhập</button>
+    <button type="submit" (click) ="login()"  mat-raised-button color="primary">Đăng nhập</button>
   </p>
 </form>
 </mat-card-content>

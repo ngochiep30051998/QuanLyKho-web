@@ -17,7 +17,7 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +34,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot(AppRoutes, { preloadingStrategy: PreloadAllModules })
   ],
   providers: [
