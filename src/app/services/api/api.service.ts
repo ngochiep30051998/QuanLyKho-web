@@ -87,4 +87,41 @@ export class ApiService {
       });
     });
   }
+  getAllProvider(){
+    const url = `${this.api}provider/list-all-provider`;
+    return this.httpClient.get(url);
+  }
+  createProvider(params) {
+    const url = `${this.api}provider/add-new-provider`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  updateProvider(params) {
+    const url = `${this.api}provider/update-provider`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  deleteProvider(params) {
+    const url = `${this.api}provider/delete-provider`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: params
+    };
+    return new Promise((resolve, reject) => {
+      this.httpClient.delete(url, httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
 }
