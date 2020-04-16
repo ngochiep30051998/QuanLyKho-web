@@ -52,12 +52,12 @@ export class StaffComponent implements OnInit {
       Ma: this.dialogData.data.Ma,
       Ten: this.dialogData.data.Ten,
       GioiTinh: this.dialogData.data.GioiTinh,
-      NgaySinh: new Date().toISOString(),
+      NgaySinh: new Date(this.dialogData.data.NgaySinh).toISOString(),
       DiaChi: this.dialogData.data.DiaChi,
       CMND: this.dialogData.data.CMND,
       Email: this.dialogData.data.Email,
       SDT: this.dialogData.data.SDT,
-      NgayVaoLam: new Date().toISOString(),
+      NgayVaoLam: new Date(this.dialogData.data.NgayVaoLam).toISOString(),
     });
   }
   async create() {
@@ -71,12 +71,12 @@ export class StaffComponent implements OnInit {
         ma: this.staffForm.value.Ma,
         ten: this.staffForm.value.Ten,
         gioiTinh: this.staffForm.value.GioiTinh,
-        ngaySinh: this.staffForm.value.NgaySinh,
+        ngaySinh: this.staffForm.value.NgaySinh || new Date(),
         diaChi: this.staffForm.value.DiaChi,
         CMND: this.staffForm.value.CMND,
         SDT: this.staffForm.value.SDT,
         email: this.staffForm.value.Email,
-        ngayVaoLam: this.staffForm.value.NgayVaoLam
+        ngayVaoLam: this.staffForm.value.NgayVaoLam || new Date()
       };
       const res: any = await this.api.createStaff(params);
       this.loading = false;
@@ -123,5 +123,8 @@ export class StaffComponent implements OnInit {
       this.loading = false;
       console.log(e);
     }
+  }
+  resetData() {
+    this.dialogData.type === 'edit' ? this.setFormData() : this.staffForm.reset();
   }
 }

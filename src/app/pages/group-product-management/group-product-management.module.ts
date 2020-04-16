@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GroupProductComponent } from './group-product/group-product.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ComponentsModule } from '../../components/components.module';
 
 
 
@@ -18,6 +19,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
     DemoMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    ComponentsModule,
     RouterModule.forChild([{ path: '', component: GroupProductManagementComponent }])
   ],
   providers: [

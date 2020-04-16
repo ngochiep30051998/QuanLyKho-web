@@ -49,4 +49,42 @@ export class ApiService {
       });
     });
   }
+
+  getAllGroupProduct(){
+    const url = `${this.api}category/list-all-category`;
+    return this.httpClient.get(url);
+  }
+  createGroupProduct(params) {
+    const url = `${this.api}category/add-new-category`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  updateGroupProduct(params) {
+    const url = `${this.api}category/update-category`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  deleteGroupProduct(params) {
+    const url = `${this.api}category/delete-category`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: params
+    };
+    return new Promise((resolve, reject) => {
+      this.httpClient.delete(url, httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
 }

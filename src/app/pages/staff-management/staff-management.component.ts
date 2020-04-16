@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api/api.service';
 import { isEmpty } from 'lodash';
+import { HelperService } from '../../services/helper/helper.service';
 
 @Component({
   selector: 'app-staff-management',
@@ -26,6 +27,7 @@ export class StaffManagementComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private api: ApiService,
+    public helperService: HelperService
   ) {
     this.getAllStaff();
 
@@ -82,10 +84,13 @@ export class StaffManagementComponent implements OnInit {
     });
   }
   getAllStaff() {
+    this.helperService.showLoading();
     this.api.getAllStaff().subscribe((res: any) => {
       this.listStaff = res.data;
       this.dataSource.data = this.listStaff;
+      this.helperService.hideLoading();
     }, err => {
+      this.helperService.hideLoading();
       console.log(err);
     });
   }

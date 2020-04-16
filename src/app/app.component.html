@@ -1,4 +1,6 @@
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
-<router-outlet><app-spinner></app-spinner></router-outlet>
+<app-overlay class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true"
+    [positionGloballyCenter]="true" [displayProgressSpinner]="loading">
+</app-overlay>
+<router-outlet>
+    <app-spinner></app-spinner>
+</router-outlet>

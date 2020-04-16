@@ -6,13 +6,18 @@
     <form class="form-container" [formGroup]="groupProductForm">
         <div class="mff-2">
             <label>Mã nhóm: </label>
+            <span class="error-text" *ngIf="groupProductForm.controls.Ma.touched && !groupProductForm.controls.Ma.valid">
+                Mã nhóm là bắt buộc
+              </span>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Mã nhóm" formControlName="Ma">
             </mat-form-field>
         </div>
         <div class="mff-2">
             <label>Tên nhóm: </label>
-            
+            <span class="error-text" *ngIf="groupProductForm.controls.Ten.touched && !groupProductForm.controls.Ten.valid">
+                Tên nhóm là bắt buộc
+              </span>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Tên nhóm" formControlName="Ten">
             </mat-form-field>
@@ -20,6 +25,13 @@
     </form>
 </mat-dialog-content>
 <div class="flex-container">
-    <button mat-raised-button color="primary">Thêm</button>
-    <button mat-raised-button color="warn">Huỷ</button>
+    <button mat-raised-button color="primary" *ngIf="dialogData.type === 'create'" [disabled]='loading' (click)="create()">
+        <app-loading-inside-btn *ngIf="loading"></app-loading-inside-btn>
+        {{loading?'':'Thêm'}}
+    </button>
+    <button mat-raised-button color="primary" *ngIf="dialogData.type === 'edit'" [disabled]='loading' (click)="update()"> 
+        <app-loading-inside-btn *ngIf="loading"></app-loading-inside-btn>
+        {{loading?'':'Sửa'}}
+    </button>
+    <button mat-raised-button color="warn" (click)="resetData()">Huỷ</button>
 </div>
