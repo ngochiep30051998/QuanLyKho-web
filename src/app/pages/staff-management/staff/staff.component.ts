@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IDiglogData } from '../../../interfaces/products.interface';
 import { HelperService } from '../../../services/helper/helper.service';
@@ -35,13 +35,13 @@ export class StaffComponent implements OnInit {
 
   initForm() {
     this.staffForm = this.fb.group({
-      Ma: [''],
-      Ten: [''],
+      Ma: ['', Validators.required],
+      Ten: ['', Validators.required],
       GioiTinh: [''],
       NgaySinh: [''],
       DiaChi: [''],
       CMND: [''],
-      Email: [''],
+      Email: ['', Validators.email],
       SDT: [''],
       NgayVaoLam: [''],
     });

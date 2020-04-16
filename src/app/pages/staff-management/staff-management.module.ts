@@ -8,6 +8,7 @@ import { DemoMaterialModule } from '../../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 
 
@@ -20,6 +21,7 @@ import { ComponentsModule } from '../../components/components.module';
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
+    DirectivesModule,
     RouterModule.forChild([{ path: '', component: StaffManagementComponent }])
   ],
   providers: [

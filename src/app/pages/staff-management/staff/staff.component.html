@@ -5,14 +5,19 @@
 <mat-dialog-content>
     <form class="form-container" [formGroup]="staffForm">
         <div class="mff-2">
-            <label>Mã nhân viên: </label>
+            <label>Mã nhân viên: </label>  
+            <span class="error-text" *ngIf="staffForm.controls.Ma.touched && !staffForm.controls.Ma.valid">
+                Mã nhân viên là bắt buộc
+              </span>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Mã nhân viên" formControlName="Ma">
             </mat-form-field>
         </div>
         <div class="mff-2">
             <label>Tên nhân viên: </label>
-            
+            <span class="error-text" *ngIf="staffForm.controls.Ten.touched && !staffForm.controls.Ten.valid">
+                Tên nhân viên là bắt buộc
+              </span>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Tên nhân viên" formControlName="Ten">
             </mat-form-field>
@@ -43,20 +48,20 @@
             <label>Chứng minh (căn cước) nhân dân: </label>
             
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="3123123" formControlName="CMND">
+                <input matInput placeholder="3123123" appInputNumber formControlName="CMND">
             </mat-form-field>
         </div>
         <div class="mff-2">
             <label>Email: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Email@gmail.com" formControlName="Email">
+                <input matInput placeholder="Email@gmail.com" type="email" formControlName="Email">
             </mat-form-field>
         </div>
         <div class="mff-2">
             <label>Số điện thoại: </label>
             
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="0123123213" formControlName="SDT">
+                <input matInput placeholder="0123123213" appInputNumber formControlName="SDT">
             </mat-form-field>
         </div>
         <div class="mff-2">
