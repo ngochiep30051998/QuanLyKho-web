@@ -1,10 +1,15 @@
 export interface IProduct {
+    Id: number;
     Ma: string;
     Ten: string;
     DonGia: number;
-    NhomVatTu: string;
-    NhaCungCap: string;
-    DonViTinh: string;
+    DonGiaNhap: number;
+    IdNhomVatTu: number;
+    TenNhomVatTu: string;
+    IdNhaCungCap: number;
+    TenNhaCungCap: string;
+    DiaChi: string;
+    SDT: string;
     SoLuong: number;
     CreatedAt?: Date;
     UpdatedAt?: Date;
@@ -13,6 +18,7 @@ export interface IProduct {
 export interface IDiglogData {
     type: string;
     data: any;
+    extendData?: any;
 }
 
 export interface IGroupProduct {

@@ -1,47 +1,45 @@
 <div class="flex-container">
     <mat-icon mat-dialog-close>close</mat-icon>
 </div>
-<h2 mat-dialog-title>Vật liệu</h2>
+<h2 mat-dialog-title>Nhà kho</h2>
 <mat-dialog-content>
-    <form class="form-container" [formGroup]="productForm">
+    <form class="form-container" [formGroup]="warehauseForm">
         <div class="mff-2">
-        <label>Mã vật liệu: </label>
+        <label>Mã nhà kho: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Mã vật liệu" formControlName="Ma">
+                <input matInput placeholder="Mã nhà kho" formControlName="Ma">
             </mat-form-field>
         </div>
         <div class="mff-2">
-        <label>Tên vật liệu: </label>
+        <label>Tên nhà kho: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Tên vật liệu" formControlName="Ten">
+                <input matInput placeholder="Tên nhà kho" formControlName="Ten">
             </mat-form-field>
         </div>
         <div class="mff-2">
-             <label>Nhóm vật tư: </label>
+             <label>Quản lý: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <mat-select placeholder="Nhóm vật tư" formControlName="IdNhomVatTu">
-                    <mat-option *ngFor="let group of listGroupProduct" [value]="group?.Id" >{{group?.Ten}}</mat-option>
+                <mat-select placeholder="Quản lý" formControlName="IdQuanLy">
+                    <mat-option *ngFor="let manager of listManager" [value]="manager?.Id" >{{manager?.Ten}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="mff-2">
-            <label>Nhà cung cấp: </label>
+            <label>Địa chỉ </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <mat-select placeholder="Nhà cung cấp" formControlName="IdNhaCungCap">
-                    <mat-option *ngFor="let provider of listProvider" [value]="provider?.Id">{{provider?.Ten}}</mat-option>
-                </mat-select>
+                <input matInput placeholder="Địa chỉ" type="text" formControlName="DiaChi">
             </mat-form-field>
         </div>
         <div class="mff-2">
-            <label>Đơn giá (VNĐ): </label>
+            <label>Số điện thoại: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Đơn giá" type="number" formControlName="DonGia">
+                <input matInput placeholder="012312313" appInputNumber formControlName="SDT">
             </mat-form-field>
         </div>
         <div class="mff-2">
-            <label>Đơn giá nhập (VNĐ): </label>
+            <label>Ghi chú: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Đơn giá" type="number" formControlName="DonGiaNhap">
+                <input matInput placeholder="Ghi chú" formControlName="GhiChu">
             </mat-form-field>
         </div>
         <!-- <div class="mff-2">
@@ -50,12 +48,7 @@
                 <input matInput placeholder="Số lượng" type="number" formControlName="SoLuong">
             </mat-form-field>
         </div> -->
-        <div class="mff-2">
-            <label>Đơn vị tính: </label>
-                <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                    <input matInput placeholder="Đơn vị tính" formControlName="DonViTinh">
-                </mat-form-field>
-            </div>
+
     </form>
 </mat-dialog-content>
 <div class="flex-container">

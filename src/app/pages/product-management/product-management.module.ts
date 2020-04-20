@@ -8,6 +8,7 @@ import { ProductComponent } from './product/product.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [ProductManagementComponent, ProductComponent, ModalDeleteComponent],
@@ -17,6 +18,7 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     DemoMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    ComponentsModule,
     RouterModule.forChild([{ path: '', component: ProductManagementComponent }])
   ],
   providers: [

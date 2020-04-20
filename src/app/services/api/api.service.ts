@@ -124,4 +124,78 @@ export class ApiService {
       });
     });
   }
+  getAllProduct(){
+    const url = `${this.api}product/list-all-product`;
+    return this.httpClient.get(url);
+  }
+  createProduct(params) {
+    const url = `${this.api}product/add-new-product`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  updateProduct(params) {
+    const url = `${this.api}product/update-product`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  deleteProduct(params) {
+    const url = `${this.api}product/delete-product`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: params
+    };
+    return new Promise((resolve, reject) => {
+      this.httpClient.delete(url, httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  getAllWarehouse(){
+    const url = `${this.api}warehouse/list-all-warehouse`;
+    return this.httpClient.get(url);
+  }
+  createWarehouse(params) {
+    const url = `${this.api}warehouse/add-new-warehouse`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  updateWarehouse(params) {
+    const url = `${this.api}warehouse/update-warehouse`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+  deleteWarehouse(params) {
+    const url = `${this.api}warehouse/delete-warehouse`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: params
+    };
+    return new Promise((resolve, reject) => {
+      this.httpClient.delete(url, httpOptions).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
 }

@@ -25,7 +25,7 @@ export const AppRoutes: Routes = [
       {
         path: 'quan-ly-nhom-vat-tu',
         loadChildren: () =>
-        import('./pages/group-product-management/group-product-management.module').then(m => m.GroupProductManagementModule)
+          import('./pages/group-product-management/group-product-management.module').then(m => m.GroupProductManagementModule)
       },
       {
         path: 'quan-ly-vat-tu',
@@ -38,6 +38,10 @@ export const AppRoutes: Routes = [
       {
         path: 'quan-ly-nhan-vien',
         loadChildren: () => import('./pages/staff-management/staff-management.module').then(m => m.StaffManagementModule)
+      },
+      {
+        path: 'quan-ly-kho',
+        loadChildren: () => import('./pages/warehouse-management/warehouse-management.module').then(m => m.WarehouseManagementModule)
       },
     ]
   },

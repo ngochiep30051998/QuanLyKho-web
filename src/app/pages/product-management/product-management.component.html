@@ -2,25 +2,20 @@
     <div class="filter">
         <mat-form-field>
             <mat-label>Tìm kiếm</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khoá">
         </mat-form-field>
     </div>
     <div class="condition">
         <mat-form-field [hideRequiredMarker]="false" [floatLabel]="'auto'">
             <mat-select placeholder="Nhóm vật tư" [(ngModel)]="filterParams.NhomVatTu">
                 <mat-option >Nhóm vật tư</mat-option>
-                <mat-option value="H">H</mat-option>
-                <mat-option value="L">L</mat-option>
-                <mat-option value="O">O</mat-option>
-                <mat-option value="HM">HM</mat-option>
+                <mat-option *ngFor="let group of listGroupProduct" [value]="group?.Id" >{{group?.Ten}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field [hideRequiredMarker]="false" [floatLabel]="'auto'">
             <mat-select placeholder="Nhà cung cấp" [(ngModel)]="filterParams.NhaCungCap">
                 <mat-option >Nhà cung cấp</mat-option>
-                <mat-option value="H">H</mat-option>
-                <mat-option value="I">I</mat-option>
-                <mat-option value="K">K</mat-option>
+                <mat-option *ngFor="let provider of listProvider" [value]="provider?.Id">{{provider?.Ten}}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
@@ -31,7 +26,7 @@
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
+        <!-- <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
@@ -43,7 +38,7 @@
                     [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
                 </mat-checkbox>
             </td>
-        </ng-container>
+        </ng-container> -->
         <!-- Position Column -->
         <ng-container matColumnDef="Ma">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã </th>
@@ -59,24 +54,25 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="DonGia">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá </th>
-            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGia}} </td>
+            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGia}} VNĐ </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DonGiaNhap">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá nhập</th>
+            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGiaNhap}} VNĐ </td>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="NhomVatTu">
+        <ng-container matColumnDef="TenNhomVatTu">
             <th mat-header-cell *matHeaderCellDef> Nhóm vật tư </th>
-            <td mat-cell *matCellDef="let element;"> {{element?.NhomVatTu}} </td>
+            <td mat-cell *matCellDef="let element;"> {{element?.TenNhomVatTu}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="NhaCungCap">
+        <ng-container matColumnDef="TenNhaCungCap">
             <th mat-header-cell *matHeaderCellDef> Nhà cung cấp </th>
-            <td mat-cell *matCellDef="let element;"> {{element?.NhaCungCap}} </td>
+            <td mat-cell *matCellDef="let element;"> {{element?.TenNhaCungCap}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="DonViTinh">
-            <th mat-header-cell *matHeaderCellDef> Đơn vị tính </th>
-            <td mat-cell *matCellDef="let element;"> {{element?.DonViTinh}} </td>
-        </ng-container>
 
         <ng-container matColumnDef="SoLuong">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng </th>
