@@ -6,12 +6,15 @@ import 'rxjs/add/operator/catch';
 import { AuthService } from '../services/auth/auth.service';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/throw';
+import { HelperService } from '../services/helper/helper.service';
+import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class CommonHttpInterceptor implements HttpInterceptor {
 
     constructor(
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private toastr: ToastrService,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -41,6 +44,10 @@ export class CommonHttpInterceptor implements HttpInterceptor {
                     });
                     return next.handle(request);
                 });
+            }
+            if (err.status === 403) {
+                this.toastr.error('Phiên làm việc đã hết, vui lòng đăng nhập lại');
+                this.router.navigate(['dang-nhap']);
             }
             return Observable.throw(err);
         });

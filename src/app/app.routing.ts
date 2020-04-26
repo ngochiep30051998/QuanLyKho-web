@@ -43,6 +43,10 @@ export const AppRoutes: Routes = [
         path: 'quan-ly-kho',
         loadChildren: () => import('./pages/warehouse-management/warehouse-management.module').then(m => m.WarehouseManagementModule)
       },
+      {
+        path: 'quan-ly-nhap',
+        loadChildren: () => import('./pages/import-management/import-management.module').then(m => m.ImportManagementModule)
+      },
     ]
   },
   {

@@ -50,7 +50,7 @@ export class ApiService {
     });
   }
 
-  getAllGroupProduct(){
+  getAllGroupProduct() {
     const url = `${this.api}category/list-all-category`;
     return this.httpClient.get(url);
   }
@@ -87,7 +87,7 @@ export class ApiService {
       });
     });
   }
-  getAllProvider(){
+  getAllProvider() {
     const url = `${this.api}provider/list-all-provider`;
     return this.httpClient.get(url);
   }
@@ -124,7 +124,7 @@ export class ApiService {
       });
     });
   }
-  getAllProduct(){
+  getAllProduct() {
     const url = `${this.api}product/list-all-product`;
     return this.httpClient.get(url);
   }
@@ -161,7 +161,7 @@ export class ApiService {
       });
     });
   }
-  getAllWarehouse(){
+  getAllWarehouse() {
     const url = `${this.api}warehouse/list-all-warehouse`;
     return this.httpClient.get(url);
   }
@@ -197,5 +197,11 @@ export class ApiService {
         reject(err);
       });
     });
+  }
+
+  // import mannagement
+  getAllImport() {
+    const url = `${this.api}import/get-all`;
+    return this.httpClient.get(url);
   }
 }

@@ -28,6 +28,7 @@ const MENUITEMSADMIN = [
   { state: 'quan-ly-nha-cung-cap', type: 'link', name: 'QUản lý nhà cung cấp', icon: 'view_headline' },
   { state: 'quan-ly-nhan-vien', type: 'link', name: 'Quản lý nhân viên', icon: 'tab' },
   { state: 'quan-ly-kho', type: 'link', name: 'Quản lý kho', icon: 'tab' },
+  { state: 'quan-ly-nhap', type: 'link', name: 'Quản lý hoá đơn nhập', icon: 'view_list' },
 
 ];
 
@@ -37,6 +38,7 @@ const MENUITEMS = [
   { state: 'quan-ly-nhom-vat-tu', type: 'link', name: 'Quản lý nhóm vật tư', icon: 'view_comfy' },
   { state: 'quan-ly-nha-cung-cap', type: 'link', name: 'QUản lý nhà cung cấp', icon: 'view_headline' },
   { state: 'quan-ly-kho', type: 'link', name: 'Quản lý kho', icon: 'tab' },
+  { state: 'quan-ly-nhap', type: 'link', name: 'Quản lý hoá đơn nhập', icon: 'view_list' },
 ];
 @Component({
   selector: 'app-sidebar',
