@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IProduct, IDiglogData, IGroupProduct } from '../../../interfaces/products.interface';
 import { IProvider } from '../../../interfaces/providers.interface';
 import { ApiService } from '../../../services/api/api.service';
 import { HelperService } from '../../../services/helper/helper.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-product',
@@ -17,7 +18,17 @@ export class ProductComponent implements OnInit {
   public listGroupProduct: IGroupProduct[] = [];
   public listProvider: IProvider[] = [];
   public loading: boolean;
-
+  public displayedColumns: string[] = [
+    'Ma', 'Ten', 'DonGia', 'DonGiaNhap', 'TenNhomVatTu', 'TenNhaCungCap', 'SoLuong', 'action'
+  ];
+  public dataSource = new MatTableDataSource<IProduct>();
+  public selection = new SelectionModel<IProduct>(true, []);
+  public filterParams = {
+    q: '',
+    NhaCungCap: '',
+    NhomVatTu: ''
+  };
+  public listProduct: IProduct[] = [];
   constructor(
     public dialogRef: MatDialogRef<ProductComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: IDiglogData,

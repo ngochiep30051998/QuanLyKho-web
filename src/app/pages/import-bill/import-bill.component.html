@@ -1,0 +1,164 @@
+<!-- ============================================================== -->
+<!-- Simple four boxes Row -->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <!-- column -->
+    <div fxFlex.gt-lg="66" fxFlex.gt-md="66" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="d-flex flex-wrap">
+                    <mat-card-title>Danh sách vật liệu</mat-card-title>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <mat-form-field>
+                        <mat-label>Tìm kiếm</mat-label>
+                        <input matInput (keyup)="applyFilter($event)"  [matAutocomplete]="auto" placeholder="Nhập từ khoá">
+                    </mat-form-field>
+                    <mat-autocomplete #auto="matAutocomplete" class="auto-complete">
+                        <mat-option *ngFor="let product of listProductSearch" [value]="product.Ten" (click)="selectProduct(product)">
+                            <span>Mã: {{product.Ma}}</span> | 
+                            <span> Tên: {{product.Ten}}</span> | 
+                            <span> Nhà cung cấp: {{product.TenNhaCungCap}}</span> | 
+                            <span> Số lượng: {{product.SoLuong}}</span> 
+                        </mat-option>
+                      </mat-autocomplete>
+                </div>
+            </mat-card-content>
+            <mat-card-content class="list-product">
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                        <!-- Checkbox Column -->
+                        <!-- <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container> -->
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="Ma">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã </th>
+                            <td mat-cell *matCellDef="let element;"> {{element?.Ma}} </td>
+                        </ng-container>
+                
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="Ten">
+                            <th mat-header-cell *matHeaderCellDef> Tên </th>
+                            <td mat-cell *matCellDef="let element;"> {{element?.Ten}} </td>
+                        </ng-container>
+                
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="DonGia">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá </th>
+                            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGia}} VNĐ </td>
+                        </ng-container>
+                
+                        <ng-container matColumnDef="DonGiaNhap">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá nhập</th>
+                            <td mat-cell *matCellDef="let element;let row"> {{element?.DonGiaNhap}} VNĐ </td>
+                        </ng-container>
+                
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="TenNhomVatTu">
+                            <th mat-header-cell *matHeaderCellDef> Nhóm vật tư </th>
+                            <td mat-cell *matCellDef="let element;"> {{element?.TenNhomVatTu}} </td>
+                        </ng-container>
+                
+                        <ng-container matColumnDef="TenNhaCungCap">
+                            <th mat-header-cell *matHeaderCellDef> Nhà cung cấp </th>
+                            <td mat-cell *matCellDef="let element;"> {{element?.TenNhaCungCap}} </td>
+                        </ng-container>
+                
+                
+                        <ng-container matColumnDef="SoLuong">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng </th>
+                            <td mat-cell *matCellDef="let element;" style="text-align: center;"> {{element?.SoLuong}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                            <td mat-cell *matCellDef="let element;let row">
+                                <mat-icon >delete</mat-icon>
+                            </td>
+                
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                
+                    <mat-paginator [pageSizeOptions]="[10, 20,30,40]" showFirstLastButtons></mat-paginator>
+                </div>
+                
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- column -->
+    <!-- column -->
+    <div fxFlex.gt-lg="33" fxFlex.gt-md="33" fxFlex.gt-xs="100" fxFlex="100">
+        <form [formGroup]="importForm">
+            <mat-card>
+                <mat-card-content>
+                    <mat-card-title>Thông tin phiếu nhập</mat-card-title>
+                </mat-card-content>
+                <mat-card-content>
+
+                    <label>Mã phiếu nhập: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <input matInput placeholder="Mã phiếu nhập" formControlName="Ma">
+                    </mat-form-field>
+
+                    <label>Ngày nhập: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <input matInput [matDatepicker]="NgayNhap" formControlName="NgayNhap">
+                        <mat-datepicker-toggle matSuffix [for]="NgayNhap"></mat-datepicker-toggle>
+                        <mat-datepicker #NgayNhap></mat-datepicker>
+                    </mat-form-field>
+
+                    <label>Nhà cung cấp: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <mat-select placeholder="Nhà cung cấp" formControlName="IdNhaCungCap">
+                            <mat-option *ngFor="let provider of listProvider" [value]="provider?.Id">{{provider?.Ten}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <label>Nhà kho: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <mat-select placeholder="Nhà kho" formControlName="IdKho">
+                            <mat-option *ngFor="let warehouse of listWarehouse" [value]="warehouse?.Id">
+                                {{warehouse?.Ten}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <label>Nhân viên: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <mat-select placeholder="Nhân viên" formControlName="IdNhanVien">
+                            <mat-option *ngFor="let staff of listStaff" [value]="staff?.Id">{{staff?.Ten}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <label>Ghi chú: </label>
+                    <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                        <textarea matInput placeholder="Ghi chú" formControlName="GhiChu"></textarea>
+                    </mat-form-field>
+
+                    <p>Tổng tiền: {{'1000000' | number}} VNĐ </p>
+
+                    <div class="ml-auto" fxLayout fxLayoutAlign="end" fxLayout.xs="column">
+                        <button mat-raised-button color="primary">Thêm</button>
+                        <button mat-raised-button color="warn">Huỷ</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </div>
+    <!-- column -->
+</div>

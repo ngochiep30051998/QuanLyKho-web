@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExportManagementComponent } from './export-management.component';
+import { ImportBillComponent } from './import-bill.component';
+import { RouterModule } from '@angular/router';
 import { DemoMaterialModule } from '../../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../components/components.module';
-import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
 @NgModule({
-  declarations: [ExportManagementComponent],
+  declarations: [ImportBillComponent],
   imports: [
     CommonModule,
     DemoMaterialModule,
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
-    RouterModule.forChild([{ path: '', component: ExportManagementComponent }])
+    FlexLayoutModule,
+    RouterModule.forChild([{path: '', component: ImportBillComponent}])
   ]
 })
-export class ExportManagementModule { }
+export class ImportBillModule { }

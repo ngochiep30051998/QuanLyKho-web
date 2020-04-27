@@ -1,1 +1,63 @@
-<p>export-management works!</p>
+<div class="flex-container">
+    <div class="filter">
+        <mat-form-field>
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khoá">
+        </mat-form-field>
+    </div>
+    <div class="condition">
+    </div>
+    <div class="action">
+        <button mat-raised-button color="primary" (click)="showBillDetail('create')">Thêm</button>
+    </div>
+</div>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="Ma">
+            <th mat-header-cell *matHeaderCellDef> Mã </th>
+            <td mat-cell *matCellDef="let element;"> {{element?.Ma}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NgayXuat">
+            <th mat-header-cell *matHeaderCellDef> Ngày xuất</th>
+            <td mat-cell *matCellDef="let element;let row"> {{element?.NgayXuat | date : 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DiaChi">
+            <th mat-header-cell *matHeaderCellDef> Địa chỉ</th>
+            <td mat-cell *matCellDef="let element;"> {{element?.DiaChi}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TongTien">
+            <th mat-header-cell *matHeaderCellDef> Tổng tiền</th>
+            <td mat-cell *matCellDef="let element;"> {{element?.TongTien | number}} VNĐ</td>
+        </ng-container>
+
+        <ng-container matColumnDef="GhiChu">
+            <th mat-header-cell *matHeaderCellDef> Ghi chú</th>
+            <td mat-cell *matCellDef="let element;"> {{element?.GhiChu}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TenNhanVien">
+            <th mat-header-cell *matHeaderCellDef> Tên nhân viên</th>
+            <td mat-cell *matCellDef="let element;"> {{element?.TenNhanVien}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TenKho">
+            <th mat-header-cell *matHeaderCellDef> Tên kho</th>
+            <td mat-cell *matCellDef="let element;"> {{element?.TenKho}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element;let row">
+                <mat-icon (click)="showBillDetail('edit',row)" >edit</mat-icon>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10,20,30,40]" showFirstLastButtons></mat-paginator>
+</div>

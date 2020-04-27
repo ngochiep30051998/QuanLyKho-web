@@ -12,8 +12,8 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./import-management.component.css']
 })
 export class ImportManagementComponent implements OnInit {
-  public displayedColumns: string[] = ['Ma', 'Ten', 'action'];
-  public listGroupProduct: IImport[];
+  public displayedColumns: string[] = ['Ma', 'NgayNhap', 'TongTien', 'GhiChu', 'TenNhanVien', 'TenNhaCungCap', 'TenKho', 'action'];
+  public listImport: IImport[];
   public dataSource = new MatTableDataSource<IImport>();
   public selection = new SelectionModel<IImport>(true, []);
   public listGroup: IImport[] = [];
@@ -22,9 +22,33 @@ export class ImportManagementComponent implements OnInit {
     public dialog: MatDialog,
     private api: ApiService,
     public helperService: HelperService
-  ) { }
+  ) {
+    this.getAllImport();
+  }
 
   ngOnInit() {
   }
 
+  getAllImport() {
+    this.helperService.showLoading();
+    this.api.getAllImport().subscribe((res: any) => {
+      this.listImport = res.data;
+      this.dataSource.data = this.listImport;
+      console.log(this.listImport);
+      this.helperService.hideLoading();
+    }, err => {
+      this.helperService.hideLoading();
+    });
+  }
+  showBillDetail(type: string, bill?: IImport) {
+    if (bill) {
+      this.router.navigate(['phieu-xuat', bill.Id]);
+    } else {
+      this.router.navigate(['them-phieu-xuat']);
+    }
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

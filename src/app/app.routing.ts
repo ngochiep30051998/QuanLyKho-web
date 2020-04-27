@@ -47,6 +47,18 @@ export const AppRoutes: Routes = [
         path: 'quan-ly-nhap',
         loadChildren: () => import('./pages/import-management/import-management.module').then(m => m.ImportManagementModule)
       },
+      {
+        path: 'quan-ly-xuat',
+        loadChildren: () => import('./pages/export-management/export-management.module').then(m => m.ExportManagementModule)
+      },
+      {
+        path: 'them-phieu-xuat',
+        loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
+      },
+      {
+        path: 'phieu-xuat/:Id',
+        loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
+      }
     ]
   },
   {

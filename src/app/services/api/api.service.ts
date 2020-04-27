@@ -204,4 +204,14 @@ export class ApiService {
     const url = `${this.api}import/get-all`;
     return this.httpClient.get(url);
   }
+
+  getImportBillDetail(billId) {
+    const url = `${this.api}import/get-detail/${billId}`;
+    return this.httpClient.get(url);
+  }
+  // export mannagement
+  getAllExport() {
+    const url = `${this.api}export/get-all`;
+    return this.httpClient.get(url);
+  }
 }
