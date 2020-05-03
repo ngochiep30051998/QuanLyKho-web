@@ -12,16 +12,18 @@
                 <div class="d-flex flex-wrap">
                     <mat-form-field>
                         <mat-label>Tìm kiếm</mat-label>
-                        <input matInput (keyup)="applyFilter($event)"  [matAutocomplete]="auto" placeholder="Nhập từ khoá">
+                        <input matInput (keyup)="applyFilter($event)" [matAutocomplete]="auto"
+                            placeholder="Nhập từ khoá">
                     </mat-form-field>
                     <mat-autocomplete #auto="matAutocomplete" class="auto-complete">
-                        <mat-option *ngFor="let product of listProductSearch" [value]="product.Ten" (click)="selectProduct(product)">
-                            <span>Mã: {{product.Ma}}</span> | 
-                            <span> Tên: {{product.Ten}}</span> | 
-                            <span> Nhà cung cấp: {{product.TenNhaCungCap}}</span> | 
-                            <span> Số lượng: {{product.SoLuong}}</span> 
+                        <mat-option *ngFor="let product of listProductSearch" [value]="product.Ten"
+                            (click)="selectProduct(product)">
+                            <span>Mã: {{product.Ma}}</span> |
+                            <span> Tên: {{product.Ten}}</span> |
+                            <span> Nhà cung cấp: {{product.TenNhaCungCap}}</span> |
+                            <span> Số lượng: {{product.SoLuong}}</span>
                         </mat-option>
-                      </mat-autocomplete>
+                    </mat-autocomplete>
                 </div>
             </mat-card-content>
             <mat-card-content class="list-product">
@@ -46,54 +48,67 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã </th>
                             <td mat-cell *matCellDef="let element;"> {{element?.Ma}} </td>
                         </ng-container>
-                
+
                         <!-- Name Column -->
                         <ng-container matColumnDef="Ten">
                             <th mat-header-cell *matHeaderCellDef> Tên </th>
                             <td mat-cell *matCellDef="let element;"> {{element?.Ten}} </td>
                         </ng-container>
-                
+
                         <!-- Weight Column -->
                         <ng-container matColumnDef="DonGia">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá </th>
                             <td mat-cell *matCellDef="let element;let row"> {{element?.DonGia}} VNĐ </td>
                         </ng-container>
-                
+
                         <ng-container matColumnDef="DonGiaNhap">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá nhập</th>
                             <td mat-cell *matCellDef="let element;let row"> {{element?.DonGiaNhap}} VNĐ </td>
                         </ng-container>
-                
+
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="TenNhomVatTu">
                             <th mat-header-cell *matHeaderCellDef> Nhóm vật tư </th>
                             <td mat-cell *matCellDef="let element;"> {{element?.TenNhomVatTu}} </td>
                         </ng-container>
-                
+
                         <ng-container matColumnDef="TenNhaCungCap">
                             <th mat-header-cell *matHeaderCellDef> Nhà cung cấp </th>
                             <td mat-cell *matCellDef="let element;"> {{element?.TenNhaCungCap}} </td>
                         </ng-container>
-                
-                
+
+
                         <ng-container matColumnDef="SoLuong">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng </th>
-                            <td mat-cell *matCellDef="let element;" style="text-align: center;"> {{element?.SoLuong}} </td>
+                            <td mat-cell *matCellDef="let element;let row, let i = index" style="text-align: center;">
+                                <input type="number" class="input-number" min="0" [(ngModel)]="row.SoLuong">
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="GhiChu">
+                            <th mat-header-cell *matHeaderCellDef> Ghi chú</th>
+                            <td mat-cell *matCellDef="let element; let row ;let i = index">
+                                <mat-form-field [style.fontSize]="'14px'">
+                                    <textarea matInput [(ngModel)]="row.GhiChu" cdkTextareaAutosize
+                                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
+                                              {{element?.GhiChu | multiLineBreak}} 
+                                            </textarea>
+                                </mat-form-field>
+                            </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-                            <td mat-cell *matCellDef="let element;let row">
-                                <mat-icon >delete</mat-icon>
+                            <th mat-header-cell *matHeaderCellDef> </th>
+                            <td mat-cell *matCellDef="let element;let row;let i = index" (click)="remove(i,element)">
+                                <mat-icon>delete</mat-icon>
                             </td>
-                
+
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                
+
                     <mat-paginator [pageSizeOptions]="[10, 20,30,40]" showFirstLastButtons></mat-paginator>
                 </div>
-                
+
             </mat-card-content>
         </mat-card>
     </div>
@@ -117,8 +132,11 @@
                         <input matInput [matDatepicker]="NgayNhap" formControlName="NgayNhap">
                         <mat-datepicker-toggle matSuffix [for]="NgayNhap"></mat-datepicker-toggle>
                         <mat-datepicker #NgayNhap></mat-datepicker>
+                     
                     </mat-form-field>
-
+                    <p class="error-text" *ngIf="importForm.controls.NgayNhap.touched && !importForm.controls.NgayNhap.valid">
+                        Bạn phải nhập ngày đúng định dạng
+                    </p>
                     <label>Nhà cung cấp: </label>
                     <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                         <mat-select placeholder="Nhà cung cấp" formControlName="IdNhaCungCap">
@@ -150,10 +168,10 @@
                         <textarea matInput placeholder="Ghi chú" formControlName="GhiChu"></textarea>
                     </mat-form-field>
 
-                    <p>Tổng tiền: {{'1000000' | number}} VNĐ </p>
+                    <p>Tổng tiền: {{getTotalPrice() | number}} VNĐ </p>
 
                     <div class="ml-auto" fxLayout fxLayoutAlign="end" fxLayout.xs="column">
-                        <button mat-raised-button color="primary">Thêm</button>
+                        <button mat-raised-button color="primary" (click)="createImport()">Thêm</button>
                         <button mat-raised-button color="warn">Huỷ</button>
                     </div>
                 </mat-card-content>

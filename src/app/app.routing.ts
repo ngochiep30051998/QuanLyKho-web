@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { NgModule } from '@angular/core';
 
 export const AppRoutes: Routes = [
   {
@@ -52,17 +53,23 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./pages/export-management/export-management.module').then(m => m.ExportManagementModule)
       },
       {
-        path: 'them-phieu-xuat',
+        path: 'phieu-xuat/:Id',
         loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
       },
       {
-        path: 'phieu-xuat/:Id',
+        path: 'phieu-xuat',
         loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
-      }
+      },
+      { path: '**', redirectTo: 'dang-nhap', pathMatch: 'full' },
     ]
   },
   {
     path: 'dang-nhap',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
-  }
+  },
 ];
+@NgModule({
+  imports: [RouterModule.forRoot(AppRoutes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

@@ -13,6 +13,7 @@ export interface IProduct {
     SoLuong: number;
     CreatedAt?: Date;
     UpdatedAt?: Date;
+    GhiChu?: string;
 }
 
 export interface IDiglogData {

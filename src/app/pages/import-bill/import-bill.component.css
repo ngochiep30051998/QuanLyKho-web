@@ -12,3 +12,8 @@ table {
     padding: 20px;
     cursor: pointer;
   }
+
+  .input-number {
+    width: 44px;
+    text-align: center;
+  }

@@ -4,8 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AppRoutes } from './app.routing';
+import { LocationStrategy, PathLocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CommonHttpInterceptor } from './interceptor/common.interceptor';
 import { ComponentsModule } from './components/components.module';
 import { MatPaginatorIntl } from '@angular/material';
+import { AppRoutingModule } from './app.routing';
 const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
   if (length === 0 || pageSize === 0) { return `0 của ${length}`; }
 
@@ -54,10 +54,11 @@ export function getDutchPaginatorIntl() {
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent
+    AppSidebarComponent,
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
     FormsModule,
@@ -66,12 +67,12 @@ export function getDutchPaginatorIntl() {
     SharedModule,
     ComponentsModule,
     ToastrModule.forRoot(),
-    RouterModule.forRoot(AppRoutes, { preloadingStrategy: PreloadAllModules })
+    // RouterModule.forRoot(AppRoutes, { preloadingStrategy: PreloadAllModules, useHash: true })
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      useClass: HashLocationStrategy
     },
     {
       provide: HTTP_INTERCEPTORS,

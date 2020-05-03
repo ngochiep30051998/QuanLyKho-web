@@ -42,9 +42,9 @@ export class ImportManagementComponent implements OnInit {
   }
   showBillDetail(type: string, bill?: IImport) {
     if (bill) {
-      this.router.navigate(['phieu-xuat', bill.Id]);
+      this.router.navigate(['phieu-xuat/', bill.Id]);
     } else {
-      this.router.navigate(['them-phieu-xuat']);
+      this.router.navigate(['phieu-xuat']);
     }
   }
   applyFilter(event: Event) {
