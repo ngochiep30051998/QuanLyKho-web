@@ -33,7 +33,7 @@
             <label>Ngày sinh: </label>
             
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput type="date" formControlName="NgaySinh">
+                <input matInput type="date" formControlName="NgaySinh" [value]="staffForm?.value?.NgaySinh | date:'yyyy-MM-dd'">
                 <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker> -->
             </mat-form-field>
@@ -67,7 +67,7 @@
         <div class="mff-2">
             <label>Ngày vào làm: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput type="date" formControlName="NgayVaoLam">
+                <input matInput type="date" formControlName="NgayVaoLam" [value]="staffForm?.value?.NgayVaoLam | date:'yyyy-MM-dd'">
                 <!-- <mat-datepicker-toggle matSuffix [for]="NgayVaoLam"></mat-datepicker-toggle>
                 <mat-datepicker #NgayVaoLam></mat-datepicker> -->
             </mat-form-field>

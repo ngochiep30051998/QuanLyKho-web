@@ -129,7 +129,7 @@
 
                     <label>Ngày nhập: </label>
                     <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                        <input matInput type="date" formControlName="NgayNhap">
+                        <input matInput type="date" [value]="importForm?.value?.NgayNhap | date:'yyyy-MM-dd'" formControlName="NgayNhap">
                         <!-- <mat-datepicker-toggle matSuffix [for]="NgayNhap"></mat-datepicker-toggle>
                         <mat-datepicker #NgayNhap></mat-datepicker> -->
                      

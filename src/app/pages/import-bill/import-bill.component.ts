@@ -198,7 +198,7 @@ export class ImportBillComponent implements OnInit {
       const params = {
         Id: this.importDetail.Id,
         Ma: this.importForm.value.Ma,
-        NgayNhap: this.importForm.value.NgayNhap,
+        NgayNhap: new Date(this.importForm.value.NgayNhap),
         IdNhaCungCap: this.importForm.value.IdNhaCungCap,
         IdNhanVien: this.importForm.value.IdNhanVien,
         IdKho: this.importForm.value.IdKho,
