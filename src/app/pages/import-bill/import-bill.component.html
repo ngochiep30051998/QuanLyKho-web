@@ -129,9 +129,9 @@
 
                     <label>Ngày nhập: </label>
                     <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                        <input matInput [matDatepicker]="NgayNhap" formControlName="NgayNhap">
-                        <mat-datepicker-toggle matSuffix [for]="NgayNhap"></mat-datepicker-toggle>
-                        <mat-datepicker #NgayNhap></mat-datepicker>
+                        <input matInput type="date" formControlName="NgayNhap">
+                        <!-- <mat-datepicker-toggle matSuffix [for]="NgayNhap"></mat-datepicker-toggle>
+                        <mat-datepicker #NgayNhap></mat-datepicker> -->
                      
                     </mat-form-field>
                     <p class="error-text" *ngIf="importForm.controls.NgayNhap.touched && !importForm.controls.NgayNhap.valid">
@@ -171,7 +171,8 @@
                     <p>Tổng tiền: {{getTotalPrice() | number}} VNĐ </p>
 
                     <div class="ml-auto" fxLayout fxLayoutAlign="end" fxLayout.xs="column">
-                        <button mat-raised-button color="primary" (click)="createImport()">Thêm</button>
+                        <button mat-raised-button color="primary" *ngIf="pageType === 'create'" (click)="createImport()">Thêm</button>
+                        <button mat-raised-button color="primary" *ngIf="pageType === 'update'" (click)="updateImport()">Cập nhật</button>
                         <button mat-raised-button color="warn">Huỷ</button>
                     </div>
                 </mat-card-content>

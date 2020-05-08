@@ -221,6 +221,16 @@ export class ApiService {
     });
   }
 
+  updateImport(params) {
+    const url = `${this.api}import/update-receipt`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
   // export mannagement
   getAllExport() {
     const url = `${this.api}export/get-all`;

@@ -19,8 +19,9 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonHttpInterceptor } from './interceptor/common.interceptor';
 import { ComponentsModule } from './components/components.module';
-import { MatPaginatorIntl } from '@angular/material';
+import { MatPaginatorIntl, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
 import { AppRoutingModule } from './app.routing';
+import { MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
   if (length === 0 || pageSize === 0) { return `0 của ${length}`; }
 
@@ -79,7 +80,9 @@ export function getDutchPaginatorIntl() {
       multi: true,
       useClass: CommonHttpInterceptor,
     },
-    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
   bootstrap: [AppComponent]
 })

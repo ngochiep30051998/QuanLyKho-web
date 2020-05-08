@@ -41,6 +41,7 @@ export class ImportBillComponent implements OnInit {
   public products: IProduct[] = [];
   public notes: any = {};
   public totalPrice = 0;
+  public pageType = 'create';
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
@@ -57,6 +58,7 @@ export class ImportBillComponent implements OnInit {
       this.helperService.showLoading();
       await this.getAllData();
       if (res.params.Id) {
+        this.pageType = 'update';
         this.api.getImportBillDetail(res.params.Id).subscribe((data: any) => {
           this.importDetail = data.data;
           console.log(this.importDetail);
@@ -66,6 +68,7 @@ export class ImportBillComponent implements OnInit {
           this.helperService.hideLoading();
         });
       } else {
+        this.pageType = 'create';
         this.helperService.hideLoading();
       }
     }, errr => {
@@ -158,7 +161,7 @@ export class ImportBillComponent implements OnInit {
       }
       const params = {
         Ma: this.importForm.value.Ma,
-        NgayNhap: this.importForm.value.NgayNhap,
+        NgayNhap: new Date(this.importForm.value.NgayNhap),
         IdNhaCungCap: this.importForm.value.IdNhaCungCap,
         IdNhanVien: this.importForm.value.IdNhanVien,
         IdKho: this.importForm.value.IdKho,
@@ -181,10 +184,48 @@ export class ImportBillComponent implements OnInit {
       this.toastr.success('Thêm thành công');
     } catch (e) {
       console.log(e);
+      this.toastr.error('Thêm thất bại');
       this.helperService.hideLoading();
-
     }
   }
+
+  async updateImport() {
+    try {
+      this.helperService.markFormGroupTouched(this.importForm);
+      if (this.importForm.invalid) {
+        return;
+      }
+      const params = {
+        Id: this.importDetail.Id,
+        Ma: this.importForm.value.Ma,
+        NgayNhap: this.importForm.value.NgayNhap,
+        IdNhaCungCap: this.importForm.value.IdNhaCungCap,
+        IdNhanVien: this.importForm.value.IdNhanVien,
+        IdKho: this.importForm.value.IdKho,
+        GhiChu: this.importForm.value.GhiChu,
+        listProduct: this.dataSource.data.map(x => {
+          const product = {
+            Id: x.Id,
+            SoLuong: x.SoLuong,
+            GhiChu: x.GhiChu
+          };
+          return product;
+        })
+      };
+      console.log(params);
+
+      this.helperService.showLoading();
+      const res = await this.api.updateImport(params);
+      console.log(res);
+      this.helperService.hideLoading();
+      this.toastr.success('Sửa thành công');
+    } catch (e) {
+      console.log(e);
+      this.toastr.error('Sửa thất bại');
+      this.helperService.hideLoading();
+    }
+  }
+
   getTotalPrice() {
     // this.totalPrice = 0;
     let total = 0;
