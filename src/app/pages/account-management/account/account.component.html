@@ -1,11 +1,11 @@
 <div class="flex-container">
     <mat-icon mat-dialog-close>close</mat-icon>
 </div>
-<h2 mat-dialog-title>Nhóm vật liệu</h2>
+<h2 mat-dialog-title>Tài khoản</h2>
 <mat-dialog-content>
     <form class="form-container" [formGroup]="accountForm">
         <div class="mff-2">
-            <label>Mã nhóm: </label>
+            <label>Tài khoản: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput placeholder="Tài khoản" formControlName="Username">
             </mat-form-field>
@@ -17,13 +17,30 @@
                 <input matInput type="password" placeholder="Mật khẩu" formControlName="Password">
             </mat-form-field>
         </div>
-        <div class="mff-1">
+        <div class="mff-2">
+            <label>Nhân viên: </label>
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <mat-select placeholder="Nhân viên" formControlName="EmployeeId">
+                    <mat-option *ngFor="let staff of listStaff" [value]="staff?.Id">{{staff?.Ten}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+      
+        <div class="mff-2">
+            <label>Xác nhận mật khẩu </label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput type="password" placeholder="Mật khẩu" formControlName="ConfirmPassword">
+            </mat-form-field>
+        </div>
+        <div class="mff-2">
             <label>Quyền: </label>
-            <label
-            formArrayName="IdRole" class="role"
-            *ngFor="let role of accountForm?.get('IdRole')['controls']; let i = index">
-                <input type="checkbox" [formControlName]="i"> {{roles[i]?.Name}}
-            </label>
+            <mat-radio-group aria-label="Select an option" formGroupName="IdRole">
+                <mat-radio-button value="1">super admin</mat-radio-button>
+                <mat-radio-button value="2">admin</mat-radio-button>
+                <mat-radio-button value="3">nhân viên</mat-radio-button>
+              </mat-radio-group>
         </div>
     </form>
 </mat-dialog-content>

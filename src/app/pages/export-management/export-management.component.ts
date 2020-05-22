@@ -41,8 +41,12 @@ export class ExportManagementComponent implements OnInit {
       this.helperService.hideLoading();
     });
   }
-  showBillDetail(type: string, billId?) {
-
+  showBillDetail(type: string, bill?: IExport) {
+    if (bill) {
+      this.router.navigate(['phieu-xuat/', bill.Id]);
+    } else {
+      this.router.navigate(['phieu-xuat']);
+    }
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

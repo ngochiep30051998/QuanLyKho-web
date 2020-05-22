@@ -16,6 +16,7 @@ export interface IExport {
     Id: number;
     Ma: string;
     NgayXuat: string;
+    DiaChi: string;
     TongTien: number;
     GhiChu: string;
     IdNhanVien: number;
@@ -34,5 +35,9 @@ export interface IProductDetail {
 }
 
 export interface IImportDetail extends IImport {
+    DanhSachVatTu: IProductDetail[];
+}
+
+export interface IExportDetail extends IExport {
     DanhSachVatTu: IProductDetail[];
 }

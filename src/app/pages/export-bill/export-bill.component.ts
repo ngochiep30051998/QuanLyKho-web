@@ -1,32 +1,33 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { ApiService } from '../../services/api/api.service';
-import { HelperService } from '../../services/helper/helper.service';
-import { IImportDetail, IProductDetail } from '../../interfaces/bill.interface';
+import { Component, OnInit } from '@angular/core';
+import { IExportDetail, IProductDetail } from '../../interfaces/bill.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IProvider } from '../../interfaces/providers.interface';
 import { IWarehouse } from '../../interfaces/warehouse.interface';
 import { IStaff } from '../../interfaces/staffs.interface';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { IProduct, IGroupProduct } from '../../interfaces/products.interface';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../services/api/api.service';
+import { HelperService } from '../../services/helper/helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
-@Component({
-  selector: 'app-import-bill',
-  templateUrl: './import-bill.component.html',
-  styleUrls: ['./import-bill.component.css']
-})
-export class ImportBillComponent implements OnInit {
+export { Component, OnInit } from '@angular/core';
 
-  public importDetail: IImportDetail;
-  public importForm: FormGroup;
+@Component({
+  selector: 'app-export-bill',
+  templateUrl: './export-bill.component.html',
+  styleUrls: ['./export-bill.component.css']
+})
+export class ExportBillComponent implements OnInit {
+  public exportDetail: IExportDetail;
+  public exportForm: FormGroup;
   public listProvider: IProvider[] = [];
   public listWarehouse: IWarehouse[] = [];
   public listStaff: IStaff[] = [];
   public displayedColumns: string[] = [
-    'Ma', 'Ten', 'DonGia', 'DonGiaNhap', 'TenNhomVatTu', 'TenNhaCungCap', 'SoLuong', 'GhiChu', 'action'
+    'Ma', 'Ten', 'DonGia', 'DonGiaNhap', 'TenNhomVatTu', 'SoLuong', 'GhiChu', 'action'
   ];
   public dataSource = new MatTableDataSource<IProduct>();
   public selection = new SelectionModel<IProduct>(true, []);
@@ -42,8 +43,6 @@ export class ImportBillComponent implements OnInit {
   public notes: any = {};
   public totalPrice = 0;
   public pageType = 'create';
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -59,9 +58,9 @@ export class ImportBillComponent implements OnInit {
       await this.getAllData();
       if (res.params.Id) {
         this.pageType = 'update';
-        this.api.getImportBillDetail(res.params.Id).subscribe((data: any) => {
-          this.importDetail = data.data;
-          console.log(this.importDetail);
+        this.api.getExportBillDetail(res.params.Id).subscribe((data: any) => {
+          this.exportDetail = data.data;
+          console.log(this.exportDetail);
           this.initData();
           this.helperService.hideLoading();
         }, err => {
@@ -81,30 +80,30 @@ export class ImportBillComponent implements OnInit {
   }
 
   initForm() {
-    this.importForm = this.fb.group({
+    this.exportForm = this.fb.group({
       Ma: ['', Validators.required],
-      NgayNhap: [''],
+      NgayXuat: [''],
+      DiaChi: [''],
       TongTien: [0],
       GhiChu: [''],
       IdNhanVien: [''],
-      IdNhaCungCap: [''],
       IdKho: [''],
     });
   }
 
   initData() {
     try {
-      this.importForm.patchValue({
-        Ma: this.importDetail.Ma,
-        NgayNhap: new Date(this.importDetail.NgayNhap),
-        TongTien: this.importDetail.TongTien,
-        GhiChu: this.importDetail.GhiChu,
-        IdNhanVien: this.importDetail.IdNhanVien,
-        IdNhaCungCap: this.importDetail.IdNhaCungCap,
-        IdKho: this.importDetail.IdKho,
+      this.exportForm.patchValue({
+        Ma: this.exportDetail.Ma,
+        NgayXuat: new Date(this.exportDetail.NgayXuat),
+        TongTien: this.exportDetail.TongTien,
+        DiaChi: this.exportDetail.DiaChi,
+        GhiChu: this.exportDetail.GhiChu,
+        IdNhanVien: this.exportDetail.IdNhanVien,
+        IdKho: this.exportDetail.IdKho,
       });
-      if (this.importDetail.DanhSachVatTu) {
-        this.importDetail.DanhSachVatTu.forEach((prod: IProductDetail) => {
+      if (this.exportDetail.DanhSachVatTu) {
+        this.exportDetail.DanhSachVatTu.forEach((prod: IProductDetail) => {
           const product = this.products.find(x => x.Id === prod.IdVatTu);
           if (product) {
             this.listProduct.push({ ...product, ...prod });
@@ -122,10 +121,10 @@ export class ImportBillComponent implements OnInit {
     this.listProductSearch = this.products.filter(x => x.Ten.toLowerCase().includes(filterValue));
   }
   selectProduct(product: IProduct) {
-    // if (product.SoLuong === 0) {
-    //   this.toastr.error('Vật liệu đã hết');
-    //   return;
-    // }
+    if (product.SoLuong === 0) {
+      this.toastr.error('Vật liệu đã hết');
+      return;
+    }
     const index = this.listProduct.findIndex(x => x.Id === product.Id);
     if (index > -1) {
       this.toastr.error('Vật liệu đã có trong phiếu', 'Thêm thất bại');
@@ -160,19 +159,19 @@ export class ImportBillComponent implements OnInit {
     });
 
   }
-  async createImport() {
+  async createExport() {
     try {
-      this.helperService.markFormGroupTouched(this.importForm);
-      if (this.importForm.invalid) {
+      this.helperService.markFormGroupTouched(this.exportForm);
+      if (this.exportForm.invalid) {
         return;
       }
       const params = {
-        Ma: this.importForm.value.Ma,
-        NgayNhap: new Date(this.importForm.value.NgayNhap),
-        IdNhaCungCap: this.importForm.value.IdNhaCungCap,
-        IdNhanVien: this.importForm.value.IdNhanVien,
-        IdKho: this.importForm.value.IdKho,
-        GhiChu: this.importForm.value.GhiChu,
+        Ma: this.exportForm.value.Ma,
+        NgayXuat: new Date(this.exportForm.value.NgayXuat),
+        IdNhanVien: this.exportForm.value.IdNhanVien,
+        IdKho: this.exportForm.value.IdKho,
+        GhiChu: this.exportForm.value.GhiChu,
+        DiaChi: this.exportForm.value.DiaChi,
         listProduct: this.dataSource.data.map(x => {
           const product = {
             Id: x.Id,
@@ -185,7 +184,7 @@ export class ImportBillComponent implements OnInit {
       console.log(params);
 
       this.helperService.showLoading();
-      const res = await this.api.createImport(params);
+      const res = await this.api.createExport(params);
       console.log(res);
       this.helperService.hideLoading();
       this.toastr.success('Thêm thành công');
@@ -196,20 +195,20 @@ export class ImportBillComponent implements OnInit {
     }
   }
 
-  async updateImport() {
+  async updateExport() {
     try {
-      this.helperService.markFormGroupTouched(this.importForm);
-      if (this.importForm.invalid) {
+      this.helperService.markFormGroupTouched(this.exportForm);
+      if (this.exportForm.invalid) {
         return;
       }
       const params = {
-        Id: this.importDetail.Id,
-        Ma: this.importForm.value.Ma,
-        NgayNhap: new Date(this.importForm.value.NgayNhap),
-        IdNhaCungCap: this.importForm.value.IdNhaCungCap,
-        IdNhanVien: this.importForm.value.IdNhanVien,
-        IdKho: this.importForm.value.IdKho,
-        GhiChu: this.importForm.value.GhiChu,
+        Id: this.exportDetail.Id,
+        Ma: this.exportForm.value.Ma,
+        NgayXuat: new Date(this.exportForm.value.NgayXuat),
+        IdNhanVien: this.exportForm.value.IdNhanVien,
+        IdKho: this.exportForm.value.IdKho,
+        GhiChu: this.exportForm.value.GhiChu,
+        DiaChi: this.exportForm.value.DiaChi,
         listProduct: this.dataSource.data.map(x => {
           const product = {
             Id: x.Id,
@@ -222,7 +221,7 @@ export class ImportBillComponent implements OnInit {
       console.log(params);
 
       this.helperService.showLoading();
-      const res = await this.api.updateImport(params);
+      const res = await this.api.updateExport(params);
       console.log(res);
       this.helperService.hideLoading();
       this.toastr.success('Sửa thành công');
@@ -241,4 +240,5 @@ export class ImportBillComponent implements OnInit {
     }
     return total;
   }
+
 }

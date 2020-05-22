@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  api: 'https://cs-manage-store.herokuapp.com/api/'
+  api: 'https://quanlykho-cs.herokuapp.com/api/'
 };

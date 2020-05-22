@@ -53,12 +53,20 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./pages/export-management/export-management.module').then(m => m.ExportManagementModule)
       },
       {
-        path: 'phieu-xuat/:Id',
+        path: 'phieu-nhap/:Id',
+        loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
+      },
+      {
+        path: 'phieu-nhap',
         loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
       },
       {
         path: 'phieu-xuat',
-        loadChildren: () => import('./pages/import-bill/import-bill.module').then(m => m.ImportBillModule)
+        loadChildren: () => import('./pages/export-bill/export-bill.module').then(m => m.ExportBillModule)
+      },
+      {
+        path: 'phieu-xuat/:Id',
+        loadChildren: () => import('./pages/export-bill/export-bill.module').then(m => m.ExportBillModule)
       },
       { path: '**', redirectTo: 'dang-nhap', pathMatch: 'full' },
     ]

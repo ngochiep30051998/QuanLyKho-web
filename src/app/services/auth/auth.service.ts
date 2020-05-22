@@ -39,4 +39,15 @@ export class AuthService {
     const url = `${this.api}auth/refresh-token`;
     return this.httpClient.post(url, params);
   }
+
+  createUser(params){
+    const url = `${this.api}auth/register`;
+    return new Promise((resolve, reject) => {
+      return this.httpClient.post(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
 }

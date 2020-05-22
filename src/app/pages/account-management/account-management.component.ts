@@ -7,6 +7,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { ROLES } from '../../constants/constants';
 import { isEmpty } from 'lodash';
+import { IStaff } from '../../interfaces/staffs.interface';
+import { ApiService } from '../../services/api/api.service';
 @Component({
   selector: 'app-account-management',
   templateUrl: './account-management.component.html',
@@ -16,16 +18,19 @@ export class AccountManagementComponent implements OnInit {
   public displayedColumns: string[] = ['Id', 'Username', 'IdRole', 'CreatedAt', 'UpdatedAt', 'action'];
   public dataSource = new MatTableDataSource<any>();
   public selection = new SelectionModel<any>(true, []);
+  public listStaff: IStaff[] = [];
   public roles = ROLES;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private router: Router,
     public dialog: MatDialog,
+    private apiService: ApiService
   ) { }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getData();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -34,7 +39,10 @@ export class AccountManagementComponent implements OnInit {
   showUserDetail(type: string, user?) {
     const data = {
       data: type === 'edit' ? user : {} as IUser,
-      type
+      type,
+      extendData: {
+        listStaff: this.listStaff
+      }
     };
     this.dialog.open(AccountComponent, {
       data: data,
@@ -57,6 +65,14 @@ export class AccountManagementComponent implements OnInit {
   getRoleName(idRole) {
     const role: IRole = this.roles.find(x => x.Id === idRole);
     return !isEmpty(role) ? role.Name : '';
+  }
+
+  getData() {
+    this.apiService.getAllStaff().subscribe((res: any) => {
+      this.listStaff = res.data;
+    }, err => {
+      console.log(err);
+    });
   }
 }
 const ELEMENT_DATA = [
