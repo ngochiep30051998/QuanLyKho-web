@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://cs-manage-store.herokuapp.com/api/'
+  api: 'https://quanlykho-cs.herokuapp.com/api/'
 };
