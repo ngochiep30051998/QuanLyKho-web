@@ -52,14 +52,14 @@ export class AppSidebarComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   menuItems: Menu[];
   private _mobileQueryListener: () => void;
-
+  public currentUser: IEmployee;
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private authService: AuthService
   ) {
-    const user: IEmployee = this.authService.getCurrentUser();
-    this.menuItems = !isEmpty(user) && user.RoleName === 'Admin' ? MENUITEMSADMIN : MENUITEMS;
+    this.currentUser = this.authService.getCurrentUser();
+    this.menuItems = !isEmpty(this.currentUser) && this.currentUser.RoleName === 'Admin' ? MENUITEMSADMIN : MENUITEMS;
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

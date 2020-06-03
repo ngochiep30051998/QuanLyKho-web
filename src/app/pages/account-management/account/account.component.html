@@ -7,14 +7,28 @@
         <div class="mff-2">
             <label>Tài khoản: </label>
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
-                <input matInput placeholder="Tài khoản" formControlName="Username">
+                <input matInput placeholder="Tài khoản" [readonly]="dialogData.type === 'edit'" formControlName="Username">
             </mat-form-field>
         </div>
-        <div class="mff-2">
-            <label>Mật khẩu </label>
+        <div class="mff-2" *ngIf="dialogData.type === 'edit'">
+            <label>Mật khẩu cũ</label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput type="password" placeholder="Mật khẩu cũ" formControlName="OldPassword">
+            </mat-form-field>
+        </div>
+        <div class="mff-2" *ngIf="dialogData.type === 'create'">
+            <label>Mật khẩu</label>
             
             <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
                 <input matInput type="password" placeholder="Mật khẩu" formControlName="Password">
+            </mat-form-field>
+        </div>
+        <div class="mff-2" *ngIf="dialogData.type === 'edit'">
+            <label>Mật khẩu mới</label>
+            
+            <mat-form-field class="" appearance="fill" [hideRequiredMarker]="false" [floatLabel]="'auto'">
+                <input matInput type="password" placeholder="Mật khẩu mới" formControlName="NewPassword">
             </mat-form-field>
         </div>
         <div class="mff-2">
@@ -34,17 +48,18 @@
                 <input matInput type="password" placeholder="Mật khẩu" formControlName="ConfirmPassword">
             </mat-form-field>
         </div>
-        <div class="mff-2">
+        <div class="mff-2" *ngIf="dialogData.type === 'create'">
             <label>Quyền: </label>
-            <mat-radio-group aria-label="Select an option" formGroupName="IdRole">
-                <mat-radio-button value="1">super admin</mat-radio-button>
-                <mat-radio-button value="2">admin</mat-radio-button>
-                <mat-radio-button value="3">nhân viên</mat-radio-button>
+            <mat-radio-group aria-label="Select an option" formControlName="IdRole">
+                <!-- <mat-radio-button value="1">super admin</mat-radio-button> -->
+                <mat-radio-button value="1">admin</mat-radio-button>
+                <mat-radio-button value="2" checked>nhân viên</mat-radio-button>
               </mat-radio-group>
         </div>
     </form>
 </mat-dialog-content>
 <div class="flex-container">
-    <button mat-raised-button color="primary" (click)="create()">Thêm</button>
+    <button mat-raised-button color="primary" *ngIf="dialogData.type === 'create'" (click)="create()">Thêm</button>
+    <button mat-raised-button color="primary" *ngIf="dialogData.type === 'edit'" (click)="update()">Sửa</button>
     <button mat-raised-button color="warn">Huỷ</button>
 </div>

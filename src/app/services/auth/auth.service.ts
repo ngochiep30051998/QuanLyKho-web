@@ -50,4 +50,15 @@ export class AuthService {
       });
     });
   }
+
+  updatePassword(params) {
+    const url = `${this.api}auth/change-password`;
+    return new Promise((resolve, reject) => {
+      this.httpClient.put(url, params).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
 }

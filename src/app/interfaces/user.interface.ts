@@ -2,9 +2,10 @@
 export interface IUser {
     Id: number;
     Username: string;
-    CreatedAt: string;
-    UpdatedAt: string;
-    IdRole: number[];
+    CreatedAt?: string;
+    UpdatedAt?: string;
+    IdRole: number;
+    RoleName: string;
 }
 
 

@@ -263,4 +263,10 @@ export class ApiService {
       });
     });
   }
+
+  getAllUser() {
+    const url = `${this.api}user/list-all-user`;
+    return this.httpClient.get(url);
+  }
+
 }

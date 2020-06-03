@@ -68,6 +68,10 @@ export const AppRoutes: Routes = [
         path: 'phieu-xuat/:Id',
         loadChildren: () => import('./pages/export-bill/export-bill.module').then(m => m.ExportBillModule)
       },
+      {
+        path: 'thay-doi-mat-khau',
+        loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfileModule)
+      },
       { path: '**', redirectTo: 'dang-nhap', pathMatch: 'full' },
     ]
   },

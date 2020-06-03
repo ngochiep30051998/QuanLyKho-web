@@ -7,17 +7,19 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { ROLES } from '../../constants/constants';
 import { isEmpty } from 'lodash';
-import { IStaff } from '../../interfaces/staffs.interface';
 import { ApiService } from '../../services/api/api.service';
+import { IStaff } from '../../interfaces/staffs.interface';
+import { HelperService } from '../../services/helper/helper.service';
 @Component({
   selector: 'app-account-management',
   templateUrl: './account-management.component.html',
   styleUrls: ['./account-management.component.css']
 })
 export class AccountManagementComponent implements OnInit {
-  public displayedColumns: string[] = ['Id', 'Username', 'IdRole', 'CreatedAt', 'UpdatedAt', 'action'];
+  public displayedColumns: string[] = ['Id', 'Username', 'RoleName', 'EmployeeName', 'action'];
   public dataSource = new MatTableDataSource<any>();
   public selection = new SelectionModel<any>(true, []);
+  public listUser: IUser[] = [];
   public listStaff: IStaff[] = [];
   public roles = ROLES;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -25,7 +27,8 @@ export class AccountManagementComponent implements OnInit {
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private apiService: ApiService
+    private apiService: ApiService,
+    public helperService: HelperService
   ) { }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -48,6 +51,17 @@ export class AccountManagementComponent implements OnInit {
       data: data,
       minWidth: 500,
       minHeight: 200
+    }).afterClosed().subscribe((res: any) => {
+      if (!isEmpty(res)) {
+        console.log(res);
+        const index = this.listUser.findIndex(x => x.Id === res.Id);
+        if (index > -1) {
+          this.listUser[index] = res;
+        } else {
+          this.listUser.push(res);
+        }
+        this.dataSource.data = this.listUser;
+      }
     });
   }
   showModalDelete(groupProduct) {
@@ -68,6 +82,16 @@ export class AccountManagementComponent implements OnInit {
   }
 
   getData() {
+    // this.helperService.showLoading();
+    this.apiService.getAllUser().subscribe((res: any) => {
+      this.listUser = res.data;
+      console.log(res)
+      this.dataSource.data = this.listUser;
+      // this.helperService.hideLoading();
+    }, err => {
+      console.log(err);
+      // this.helperService.hideLoading();
+    });
     this.apiService.getAllStaff().subscribe((res: any) => {
       this.listStaff = res.data;
     }, err => {

@@ -29,52 +29,45 @@ export class AccountComponent implements OnInit {
     console.log(this.dialogData);
     // this.dialogRef.getState()
     this.listStaff = this.dialogData.extendData.listStaff;
-    this.initForm();
     if (this.dialogData.type === 'edit') {
+      this.initFormUpdatePassword();
       this.setFormData();
+    } else {
+      this.initFormCreate();
     }
   }
 
   ngOnInit() {
   }
 
-  initForm() {
+  initFormCreate() {
     this.accountForm = this.fb.group({
       Username: ['', Validators.required],
       Password: ['', Validators.required],
       ConfirmPassword: ['', Validators.required],
-      IdRole: [3, Validators.required],
+      IdRole: [2, Validators.required],
       EmployeeId: ['', Validators.required]
     });
     // this.addCheckboxes();
   }
-
-  setFormData() {
-    // this.addCheckboxes();
-    const listRole = [];
-    // console.log(this.dialogData.data.IdRole)
-    this.roles.forEach((role, i) => {
-      listRole[i] = this.dialogData.data.IdRole.findIndex(x => x === role.Id) > -1 ? true : false;
+  initFormUpdatePassword() {
+    this.accountForm = this.fb.group({
+      Username: ['', Validators.required],
+      OldPassword: ['', Validators.required],
+      NewPassword: ['', Validators.required],
+      ConfirmPassword: ['', Validators.required],
+      EmployeeId: ['', Validators.required]
     });
+  }
+  setFormData() {
     this.accountForm.patchValue({
       Username: this.dialogData.data.Username,
       Password: '',
-      IdRole: listRole
-    });
-  }
-  addCheckboxes() {
-    this.roles.forEach(role => {
-      const control = new FormControl(role.Id === 3);
-      (this.accountForm.controls.IdRole as FormArray).push(control);
+      EmployeeId: this.dialogData.data.EmployeeId
     });
   }
 
   async create() {
-    // this.accountForm.value.IdRole = this.accountForm.value.IdRole.map((role, i) => {
-    //   if (role) {
-    //     return this.roles[i].Id;
-    //   }
-    // }).filter(x => x);
     try {
       console.log(this.accountForm.value);
       this.helperService.markFormGroupTouched(this.accountForm);
@@ -89,11 +82,21 @@ export class AccountComponent implements OnInit {
         employeeId: this.accountForm.value.EmployeeId,
         roleId: this.accountForm.value.IdRole
       };
-      const add = await this.authService.createUser(params);
+      const res: any = await this.authService.createUser(params);
       this.toastr.success('Thêm thành công');
-      console.log(add);
+      console.log(res);
       this.helperService.hideLoading();
-      this.dialogRef.close();
+      this.toastr.success(res.message);
+      const callBackData = {
+        EmployeeId: res.employee.NhanVienId,
+        EmployeeName: res.employee.TenNhanVien,
+        Id: res.employee.UserId,
+        IdRole: this.accountForm.value.IdRole,
+        RoleName: res.employee.RoleName,
+        Username: this.accountForm.value.Username,
+      };
+      // callBackData.Id = res.UserId;
+      this.dialogRef.close(callBackData);
     } catch (e) {
       console.log(e);
       if (e.error && e.error.errorArr) {
@@ -106,5 +109,37 @@ export class AccountComponent implements OnInit {
       this.helperService.hideLoading();
     }
 
+  }
+  async update() {
+    try {
+      console.log(this.accountForm.value);
+      this.helperService.markFormGroupTouched(this.accountForm);
+      if (this.accountForm.invalid) {
+        return;
+      }
+      this.helperService.showLoading();
+      const params = {
+        oldPassword: this.accountForm.value.OldPassword,
+        newPassword: this.accountForm.value.NewPassword,
+        confirmPassword: this.accountForm.value.ConfirmPassword,
+        employeeId: this.accountForm.value.EmployeeId,
+      };
+      const res: any = await this.authService.updatePassword(params);
+      this.toastr.success('Thêm thành công');
+      console.log(res);
+      this.helperService.hideLoading();
+      this.toastr.success(res.message);
+      const callBackData = {
+        EmployeeId: this.accountForm.value.EmployeeId,
+        EmployeeName: this.dialogData.data.EmployeeName,
+        Id: this.dialogData.data.Id,
+        IdRole: this.dialogData.data.IdRole,
+        RoleName: this.dialogData.data.RoleName,
+        Username: this.dialogData.data.Username,
+      };
+      this.dialogRef.close(callBackData);
+    } catch (e) {
+      this.helperService.hideLoading();
+    }
   }
 }
