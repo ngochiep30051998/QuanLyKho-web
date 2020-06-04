@@ -21,7 +21,7 @@ export interface Menu {
 }
 
 const MENUITEMSADMIN = [
-  { state: 'trang-chu', name: 'Trang chủ', type: 'link', icon: 'av_timer' },
+  // { state: 'trang-chu', name: 'Trang chủ', type: 'link', icon: 'av_timer' },
   { state: 'quan-ly-vat-tu', type: 'link', name: 'Quản lý vật tư', icon: 'crop_7_5' },
   { state: 'quan-ly-nhom-vat-tu', type: 'link', name: 'Quản lý nhóm vật tư', icon: 'view_comfy' },
   { state: 'quan-ly-tai-khoan', type: 'link', name: 'Quản lý tải khoản', icon: 'account_circle' },
@@ -35,7 +35,7 @@ const MENUITEMSADMIN = [
 ];
 
 const MENUITEMS = [
-  { state: 'trang-chu', name: 'Trang chủ', type: 'link', icon: 'av_timer' },
+  // { state: 'trang-chu', name: 'Trang chủ', type: 'link', icon: 'av_timer' },
   { state: 'quan-ly-vat-tu', type: 'link', name: 'Quản lý vật tư', icon: 'crop_7_5' },
   { state: 'quan-ly-nhom-vat-tu', type: 'link', name: 'Quản lý nhóm vật tư', icon: 'view_comfy' },
   { state: 'quan-ly-nha-cung-cap', type: 'link', name: 'QUản lý nhà cung cấp', icon: 'view_headline' },

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { ApiService } from '../../services/api/api.service';
 import { HelperService } from '../../services/helper/helper.service';
 import { IImport } from '../../interfaces/bill.interface';
@@ -17,6 +17,7 @@ export class ImportManagementComponent implements OnInit {
   public dataSource = new MatTableDataSource<IImport>();
   public selection = new SelectionModel<IImport>(true, []);
   public listGroup: IImport[] = [];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -27,6 +28,7 @@ export class ImportManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   getAllImport() {

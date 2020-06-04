@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.toastr.success('Đăng nhập thành công');
       localStorage.setItem('accessToken', res.accessToken);
       localStorage.setItem('refreshToken', res.refreshToken);
-      this.router.navigate(['trang-chu']);
+      this.router.navigate(['quan-ly-vat-tu']);
       this.loading = false;
     }).catch(err => {
       console.log(err);
