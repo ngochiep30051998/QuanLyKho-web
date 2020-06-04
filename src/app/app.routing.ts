@@ -12,13 +12,13 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/trang-chu',
+        redirectTo: '/quan-ly-vat-tu',
         pathMatch: 'full'
       },
-      {
-        path: 'trang-chu',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
-      },
+      // {
+      //   path: 'trang-chu',
+      //   loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
+      // },
       {
         path: 'quan-ly-tai-khoan',
         loadChildren: () => import('./pages/account-management/account-management.module').then(m => m.AccountManagementModule)
